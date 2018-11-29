@@ -2,7 +2,7 @@
 .IndexHome{
   width: 100%;
   display: block;
-  background-color: #00AC2C;
+  background-color: #7acfa6;
   height: 500rpx;
   overflow: hidden;
   text-align: center

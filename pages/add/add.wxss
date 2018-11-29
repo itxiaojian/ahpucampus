@@ -45,7 +45,7 @@ page {
   height: 120rpx; line-height: 120rpx; border-radius:0px;
 }
 .is_checked{  
-  flex: 6; background: #40AF0A;
+  flex: 6; background: #7acfa6;
   height: 120rpx; line-height: 120rpx; border-radius:0px; color: #fff
 }  
 .jianBtn{
@@ -53,7 +53,7 @@ page {
   height: 120rpx; line-height: 120rpx; border-radius:0px;
 }
 .is_checksd{  
-  flex: 6; background: #40AF0A;
+  flex: 6; background: #7acfa6;
   height: 120rpx; line-height: 120rpx; border-radius:0px; color: #fff
 }  
 .xuanLine{

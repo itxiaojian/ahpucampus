@@ -1,16 +1,20 @@
-
+//about.js
+//获取应用实例
+var app = getApp();
 Page({
-
   data: {
-    loadingHide: true,
-    loadingText: "加载中"
+    version: '',
+    showLog: false
   },
-
-  onLoad: function (options) {
-    var that = this;
-    that.setData({ loadingHide: false });
-    setTimeout(function () {
-      that.setData({ loadingHide: true });
-    }, 1000)
+  onLoad: function () {
+    this.setData({
+      version: app.version,
+      year: new Date().getFullYear()
+    });
+  },
+  toggleLog: function () {
+    this.setData({
+      showLog: !this.data.showLog
+    });
   }
-})
+});

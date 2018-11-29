@@ -79,8 +79,8 @@
       text-align: center;
     }  
     .weui-bar__item_on{ 
-      color: #00AC2C;  
-      border-bottom: 4rpx solid #00AC2C;
+      color: #7acfa6;  
+      border-bottom: 4rpx solid #7acfa6;
     }  
     .weui-tab__panel{ 
       z-index: 9000;

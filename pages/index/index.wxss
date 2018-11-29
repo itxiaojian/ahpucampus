@@ -45,7 +45,7 @@ page{
   text-align: left; height: 50rpx; line-height: 50rpx; color: #B4B4B4;
   margin-top: 15rpx
 }
-.UserDate-a{ border-right: 6rpx #00AC2C solid}
+.UserDate-a{ border-right: 6rpx #7acfa6 solid}
 .UserDate-b{ border-right: 6rpx #FF9428 solid}
 
 .loading{
@@ -89,8 +89,8 @@ page{
       text-align: center;
     }  
     .weui-bar__item_on{ 
-      color: #00AC2C;  
-      border-bottom: 4rpx solid #00AC2C;
+      color: #7acfa6;  
+      border-bottom: 4rpx solid #7acfa6;
     }  
     .weui-tab__panel{ 
       z-index: 9000;
