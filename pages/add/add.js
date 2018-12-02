@@ -1,9 +1,9 @@
 var bmap = require('../../utils/bmap-wx.js');
-const API_URL = 'https://0001.kuufuu.com/shiwu/';
 var wxMarkerData = [];  
+var app = getApp();
 Page({
   data: {
-    ak:"TpuxEYW71E4KUKiukAvfBHackibmfa6E", 
+    ak:"HlywG465vNEBwWOm98Exbt3ZwB2nk2VF", 
     markers: [],    
     longitude:'',    
     latitude:'',    
@@ -71,7 +71,7 @@ Page({
         duration: 4000
       })
       wx.request({
-        url: API_URL + 'addData/rid/' + rid + '/openid/' + openid,
+        url: app.globalData.API_URL + 'addData/rid/' + rid + '/openid/' + openid,
         data: formData,
         header: {
           'Content-Type': 'application/json'
@@ -82,7 +82,7 @@ Page({
             if (imglist != '') {
               for (var i = 0; i < imglist.length; i++) {
                 wx.uploadFile({
-                  url: API_URL + 'upload/pid/' + aid,
+                  url: app.globalData.API_URL + 'upload/pid/' + aid,
                   filePath: imglist[0],
                   name: 'files',
                   formData: {
@@ -138,14 +138,14 @@ Page({
   upsUid: function(e){
     var openid = e.data;
     wx.request({
-      url: API_URL + 'seachUser/openid/' + openid,
+      url: app.globalData.API_URL + 'seachUser/openid/' + openid,
       header: {
         'content-type': 'application/json'
       },
       success: function (res) {
         if(res.data != 0){
           wx.navigateTo({
-            url: '../mobile/mobile',
+            //url: '../mobile/mobile',
           })
         }
       }
@@ -166,7 +166,7 @@ Page({
     wx.login({
       success: function (loginCode) {
         wx.request({
-          url: API_URL + 'GetOpenid/code/' + loginCode.code,
+          url: app.globalData.API_URL + 'GetOpenid/code/' + loginCode.code,
           header: {
             'content-type': 'application/json'
           },

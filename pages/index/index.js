@@ -1,4 +1,4 @@
-var url = "https://0001.kuufuu.com/shiwu/";
+var app = getApp();
 var page = 0;
 var page_size = 5; 
 var GetList = function (that) {
@@ -8,7 +8,7 @@ var GetList = function (that) {
   });
   wx.showNavigationBarLoading();
   wx.request({
-    url: url + 'index/rid/' + activeIndex,
+    url: app.globalData.API_URL + 'index/rid/' + activeIndex,
     data: {
       page: page,
       page_size: page_size

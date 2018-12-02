@@ -1,5 +1,4 @@
 var app = getApp();
-const API_URL = 'https://0001.kuufuu.com/shiwu/';
 Page({
   data: {
     userInfo: {},
@@ -23,14 +22,27 @@ Page({
       wx.login({
         success: function (loginCode) {
           wx.request({
-            url: API_URL + 'GetOpenid/code/' + loginCode.code,
+            url: app.globalData.API_URL + '/wechat/authorize',
             header: {
               'content-type': 'application/json'
             },
+            method: 'POST',
+            data: {
+              code: loginCode.code
+            },
             success: function (res) {
-              that.setData({
-                openid: res.data
-              })
+              console.log("authorize:" + JSON.stringify(res.data));
+              if(res.data.success){
+                console.log("useropenid:" + res.data.data);
+                that.setData({
+                  openid: res.data.data
+                })
+              }else{
+                console.log("授权失败");
+              }
+            },
+            fail: function () {
+              console.log("授权失败,系统异常");
             }
           })
         }
@@ -39,6 +51,7 @@ Page({
       that.setData({
         userInfo: userInfo
       })
+      console.log("userInfo:" + JSON.stringify(userInfo));
     })
   }
 })

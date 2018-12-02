@@ -27,6 +27,7 @@ App({
   },
 
   globalData: {
-    userInfo: null
+    userInfo: null,
+    API_URL:'http://localhost:8086'
   }
 })

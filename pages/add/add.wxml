@@ -8,7 +8,7 @@
 
   <view class="mbTxing">
     <text>【注】当前所发信息将覆盖周边50公里范围</text>
-    <text>【意】全太原市附近小程序基本都可以看到</text>
+    <text>【意】全芜湖市附近小程序基本都可以看到</text>
     <text>【啦】违法广告信息将会被管理员永久禁言</text>
   </view>
   <form bindsubmit="formSubmit">

@@ -2,7 +2,7 @@ var app = getApp()
 var maxTime = 60
 var currentTime = maxTime 
 var interval = null
-const API_URL = 'https://0001.kuufuu.com/shiwu/';
+var app = getApp()
 Page({
   data: {
     userInfo: {},
@@ -52,7 +52,7 @@ Page({
         }, 1000)
         setTimeout(function () {
           wx.request({
-            url: API_URL + 'msCode/tel/' + tel,
+            url: app.globalData.API_URL + 'msCode/tel/' + tel,
             data: '',
             header: {
               'Content-Type': 'application/json'
@@ -88,7 +88,7 @@ Page({
     }else{
       if (msCode == telCode) {
         wx.request({
-          url: API_URL + 'userChick' + '/openid/' + openid,
+          url: app.globalData.API_URL + 'userChick' + '/openid/' + openid,
           data: formData,
           header: {
             'Content-Type': 'application/json'
@@ -121,7 +121,7 @@ Page({
     wx.login({
       success: function (loginCode) {
         wx.request({
-          url: API_URL + '/GetOpenid/code/' + loginCode.code,
+          url: app.globalData.API_URL + '/GetOpenid/code/' + loginCode.code,
           header: {
             'content-type': 'application/json'
           },

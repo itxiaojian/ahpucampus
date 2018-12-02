@@ -1,7 +1,6 @@
 var app = getApp();
 var util = require("../../utils/util.js");
 var network = require('../../utils/network.js');
-const API_URL = 'https://0001.kuufuu.com/shiwu/';
 Page({
   data: {
     views:'',
@@ -62,7 +61,7 @@ Page({
     var userInfo = that.data.userInfo;
    if(ev == 1){
       wx.request({
-        url: API_URL + 'getGuanzhu/',
+        url: app.globalData.API_URL + 'getGuanzhu/',
         data: {
           cid: 1,
           openid: that.data.openid,
@@ -77,7 +76,7 @@ Page({
       })
    }else if(ev == 2){
        wx.request({
-        url: API_URL + 'getGuanzhu/',
+         url: app.globalData.API_URL + 'getGuanzhu/',
         data: {
           cid: 2,
           vid: that.data.vid
@@ -110,7 +109,7 @@ Page({
     })
     that.umessage(params.id); 
     wx.request({
-      url: API_URL + 'view/id/' + params.id,
+      url: app.globalData.API_URL + 'view/id/' + params.id,
       data: {},
       method: 'GET',
       success: function (res) {
@@ -138,7 +137,7 @@ Page({
     wx.login({
       success: function (loginCode) {
         wx.request({
-          url: API_URL + '/GetOpenid/code/' + loginCode.code,
+          url: app.globalData.API_URL + '/GetOpenid/code/' + loginCode.code,
           header: {
             'content-type': 'application/json'
           },
@@ -194,7 +193,7 @@ Page({
   umessage: function (vid){
     var that = this;
     wx.request({
-      url: API_URL + 'up_message/vid/' + vid,
+      url: app.globalData.API_URL + 'up_message/vid/' + vid,
       data: {
         page: 0,
         page_size: that.data.pageSize
@@ -226,7 +225,7 @@ Page({
     var data = {
       vid: that.data.view_id
     }
-    network.requestLoading(API_URL + 'up_message/', data, message, function (res) {
+    network.requestLoading(app.globalData.API_URL + 'up_message/', data, message, function (res) {
       var contentlistTem = that.data.comments
         if (that.data.page == 1) {
           contentlistTem = []
@@ -309,7 +308,7 @@ Page({
     var userInfo = that.data.userInfo;
     setTimeout(function () {
       wx.request({
-        url: API_URL + 'ad_message/vid/' + vid,
+        url: app.globalData.API_URL + 'ad_message/vid/' + vid,
         data: {
           content: that.data.content,
           openid: that.data.openid,

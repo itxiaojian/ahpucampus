@@ -1,7 +1,7 @@
-const API_URL = 'https://0001.kuufuu.com/shiwu/';
+var app = getApp();
 Page({
   data: {
-    picUrl: "https://0001.kuufuu.com/",
+    picUrl: app.globalData.API_URL,
     openid: null,
     items: [],
     startX: 0, 
@@ -20,7 +20,7 @@ Page({
     }
     wx.showNavigationBarLoading(); 
     wx.request({
-      url: API_URL + 'userMore/openid/' + openid + '/activeIndex/' + activeIndex,
+      url: app.globalData.API_URL + 'userMore/openid/' + openid + '/activeIndex/' + activeIndex,
       data: '',
       header: {
         'content-type': 'application/json'
@@ -93,7 +93,7 @@ Page({
     var txtId = e.currentTarget.dataset.id;
     that.data.items.splice(e.currentTarget.dataset.index, 1)
     wx.request({
-      url: API_URL + 'delTxt/id/' + txtId,
+      url: app.globalData.API_URL + 'delTxt/id/' + txtId,
       data: '',
       header: {
         'content-type': 'application/json'
@@ -116,7 +116,7 @@ Page({
     var that = this;
     var openid = that.data.openid;
     wx.request({
-      url: API_URL + 'userMore/openid/' + openid,
+      url: app.globalData.API_URL + 'userMore/openid/' + openid,
       data: '',
       header: {
         'content-type': 'application/json'
