@@ -14,6 +14,9 @@
     <navigator class="list_b" url="../about/about">
         关于我们
     </navigator>
+    <navigator w:if="{{userInfo.nickName == 'nullqqew'}}" class="list_b" url="../test/test">
+        test
+    </navigator>
   </view>
 
   <view class="footer">
