@@ -1,6 +1,7 @@
 var app = getApp();
 var CusBase64 = require('base64.js');
 var md5 = require('md5.js'); 
+var util = require('util.js');
 
 
 /**
@@ -9,8 +10,9 @@ var md5 = require('md5.js');
  * postData：参数，json类型
  * doSuccess：成功的回调函数
  * doFail：失败的回调函数
+ * token: jwt token
  */
-function doPost(url, message,postData, doSuccess, doFail) {
+function doPost(url, message, postData, token, doSuccess, doFail) {
 
   wx.showNavigationBarLoading()
   if (message != "") {
@@ -19,12 +21,16 @@ function doPost(url, message,postData, doSuccess, doFail) {
     })
   }
 
+  if (util.isNull(token)){
+    token = app.globalData.userInfo.token;
+  }
+
   wx.request({
     //项目的真正接口，通过字符串拼接方式实现
-    url: + url,
+    url: url,
     header: {
       "content-type": "application/json;charset=UTF-8",
-      "Authorization": "Bearer "+app.globalData.userInfo.token
+      "Authorization": "Bearer " + token
     },
     data: jwt4params(postData),
     method: 'POST',
@@ -58,8 +64,12 @@ function doGet(url, doSuccess, doFail) {
 }
 
 function jwt4params(params){
+  var randomKey = params.randomKey;
+  if (util.isNull(randomKey)){
+    randomKey = app.globalData.userInfo.randomKey;
+  }
   var _object = CusBase64.CusBASE64.encoder(JSON.stringify(params));
-  var sign = md5.hexMD5(_object+app.globalData.userInfo.randomKey);
+  var sign = md5.hexMD5(_object + randomKey);
   console.log("sign===" + sign);
   console.log("_object===" + _object);
   return new BaseTransferEntity(sign,_object);

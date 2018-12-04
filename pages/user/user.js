@@ -49,7 +49,7 @@ Page({
             console.log("app.globalData.userInfo" + JSON.stringify(app.globalData.userInfo));
 
             //完善的用户信息提交到后台入表
-            saveOrUpdateUser(app.globalData.userInfo);
+            app.saveOrUpdateUser(app.globalData.userInfo);
           },
             fail: function () {
               console.log("授权失败,系统异常");
@@ -59,15 +59,3 @@ Page({
       })
   }
 })
-
-function saveOrUpdateUser(user) {
-  httprequest.doPost(app.globalData.API_URL+"/hello", "", user,
-    function (res) {
-      wx.hideNavigationBarLoading()
-      console.log("用户信息保存成功" + JSON.stringify(user));
-    },
-    function (res) {
-      wx.hideNavigationBarLoading()
-      console.log("用户信息保存失败" + JSON.stringify(user));
-    });
-}
