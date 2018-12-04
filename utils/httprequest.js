@@ -21,7 +21,7 @@ function doPost(url, message,postData, doSuccess, doFail) {
 
   wx.request({
     //项目的真正接口，通过字符串拼接方式实现
-    url: app.globalData.API_URL + url,
+    url: + url,
     header: {
       "content-type": "application/json;charset=UTF-8",
       "Authorization": "Bearer "+app.globalData.userInfo.token
@@ -41,7 +41,7 @@ function doPost(url, message,postData, doSuccess, doFail) {
 //GET请求，不需传参，直接URL调用，
 function doGet(url, doSuccess, doFail) {
   wx.request({
-    url: app.globalData.API_URL + url,
+    url: url,
     header: {
       "content-type": "application/json;charset=UTF-8"
     },

@@ -65,6 +65,7 @@ Page({
     display: true
   },
   onLoad: function () {
+    console.log("test1 onLoad");
     //获取用户基本信息
     app.getUserInfo(function (userInfo) {
       util.setCurrentUser(userInfo);
@@ -72,12 +73,13 @@ Page({
     })
   },
   onShow: function () {
+    console.log("test1 onShow");
+    console.log(JSON.stringify(util.getCurrentUser()));
     var that = this;
     var ShdthNum = that.data.ShdthNum;
     if (ShdthNum == 1){
       GetList(that);
     }
-    
   },
 
   onReachBottom: function (e) {
@@ -106,5 +108,26 @@ Page({
       title: '来看看大家都捡到了什么【太原】',
       path: '/pages/index/index'
     }
+  },
+  onReady: function () {
+    // 生命周期函数--监听页面初次渲染完成
+    console.log("test1 onReady");
+  },
+
+  onHide: function () {
+    // 生命周期函数--监听页面隐藏
+    console.log("test1 onHide");
+  },
+  onUnload: function () {
+    // 生命周期函数--监听页面卸载
+    console.log("test1 onUnload");
+  },
+  onPullDownRefresh: function () {
+    // 页面相关事件处理函数--监听用户下拉动作
+    console.log("test1 onPullDownRefresh");
+  },
+  onReachBottom: function () {
+    // 页面上拉触底事件的处理函数
+    console.log("test1 onReachBottom");
   }
 })

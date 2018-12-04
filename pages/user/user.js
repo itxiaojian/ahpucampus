@@ -15,7 +15,7 @@ Page({
       userInfo: currentUser
     })
     //感觉有点多此一举
-    if (!util.isNull(currentUser.openId)){
+    if (!util.isNull(currentUser.openId)&&!util.isNull(currentUser.token)){
       console.log("当前用户已授权"+JSON.stringify(currentUser));
       return;
     }
@@ -49,7 +49,7 @@ Page({
             console.log("app.globalData.userInfo" + JSON.stringify(app.globalData.userInfo));
 
             //完善的用户信息提交到后台入表
-            saveOrUpdateUser(app.globalData.userInfo);
+            //saveOrUpdateUser(app.globalData.userInfo);
           },
             fail: function () {
               console.log("授权失败,系统异常");
@@ -61,7 +61,7 @@ Page({
 })
 
 function saveOrUpdateUser(user) {
-  httprequest.doPost("/hello", "", user,
+  httprequest.doPost(app.globalData.API_URL+"/hello", "", user,
     function (res) {
       wx.hideNavigationBarLoading()
       console.log("用户信息保存成功" + JSON.stringify(user));

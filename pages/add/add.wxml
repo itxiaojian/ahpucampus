@@ -36,7 +36,9 @@
         </view>
       </view>
     </view>
-
+<view class="mbBtn">
+      <button class="vBtn_ok" bindtap='test'>提交发布</button>
+    </view>
     <view class="mbBtn">
       <button class="vBtn_ok" formType="submit" loading="{{loading}}" disabled="{{disabled}}">提交发布</button>
     </view>
