@@ -14,9 +14,11 @@
     <navigator class="list_b" url="../about/about">
         关于我们
     </navigator>
-    <navigator w:if="{{userInfo.nickName == 'nullqqew'}}" class="list_b" url="../test/test">
-        test
+    <block wx:if="{{userInfo.openId == 'oDpaP4nogLDCUGdAtYzge_esrYLo'}}">
+    <navigator class="list_b" url="../test/test">
+        {{userInfo.openId}}
     </navigator>
+    </block>
   </view>
 
   <view class="footer">

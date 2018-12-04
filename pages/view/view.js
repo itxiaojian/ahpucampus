@@ -1,6 +1,6 @@
 var app = getApp();
 var util = require("../../utils/util.js");
-var network = require('../../utils/network.js');
+var httprequest = require('../../utils/httprequest.js');
 Page({
   data: {
     views:'',
@@ -225,7 +225,7 @@ Page({
     var data = {
       vid: that.data.view_id
     }
-    network.requestLoading(app.globalData.API_URL + 'up_message/', data, message, function (res) {
+    httprequest.requestLoading('up_message/', data, message, function (res) {
       var contentlistTem = that.data.comments
         if (that.data.page == 1) {
           contentlistTem = []

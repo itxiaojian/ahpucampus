@@ -1,3 +1,4 @@
+var util = require('../../utils/util.js');
 var app = getApp();
 var page = 0;
 var page_size = 5; 
@@ -64,7 +65,11 @@ Page({
     display: true
   },
   onLoad: function () {
-
+    //获取用户基本信息
+    app.getUserInfo(function (userInfo) {
+      util.setCurrentUser(userInfo);
+      console.log("userInfo-index:" + JSON.stringify(userInfo));
+    })
   },
   onShow: function () {
     var that = this;
