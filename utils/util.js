@@ -27,6 +27,10 @@ function isNull(obj){
   }
 }
 
+function isNotNull(obj){
+   return !isNull(obj);
+}
+
 function formatTime(date) {
   //var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -49,5 +53,6 @@ module.exports = {
   formatTime: formatTime,
   setCurrentUser: setCurrentUser,
   getCurrentUser: getCurrentUser,
-  isNull: isNull
+  isNull: isNull,
+  isNotNull: isNotNull
 }
