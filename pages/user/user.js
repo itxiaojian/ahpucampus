@@ -57,5 +57,75 @@ Page({
           })
         }
       })
+  },
+
+/**
+ * 更新头像信息
+ */
+  refreash : function(){
+    var m = util.formatTime(new Date);
+    var count = wx.getStorageSync('refreashcount');
+    console.log("m", m); 
+    console.log("count", count);
+    if (m != wx.getStorageSync('m') || count == undefined) {
+      if (count = 5 || count == undefined) { 
+        count = 0; 
+        wx.setStorageSync('refreashcount', count);
+        }
+      wx.setStorageSync('m', m);
+      this.getUserInfo();
+      count++;
+      wx.setStorageSync('refreashcount', count);
+      // wx.hideLoading();
+    } else {
+      if(count < 5){
+        this.getUserInfo();
+        count++;
+        wx.setStorageSync('refreashcount', count);
+        // wx.hideLoading();
+      }else{
+        console.log("操作太快啦");
+        wx.showToast({
+          title: '操作太频繁啦',
+          icon: 'none',
+          duration: 2000
+        });
+      }
+      //提交太频繁了。
+    } 
+  },
+
+  getUserInfo :function(){
+    wx.showLoading({
+      title: "正在同步...",
+    });
+    var that = this;
+    wx.getUserInfo({
+      withCredentials: false,
+      success: function (res) {
+        // console.log("res======" + JSON.stringify(res));
+        var openId = app.globalData.userInfo.openId;
+        var randomKey = app.globalData.userInfo.randomKey;
+        var token = app.globalData.userInfo.token;
+        app.globalData.userInfo = res.userInfo;
+        app.globalData.userInfo.openId = openId;
+        app.globalData.userInfo.randomKey = randomKey;
+        app.globalData.userInfo.token = token;
+        that.setData({
+          userInfo: app.globalData.userInfo
+        });
+        util.setCurrentUser(app.globalData.userInfo);
+        //完善的用户信息提交到后台入表
+        app.saveOrUpdateUser(app.globalData.userInfo);
+      },
+      complete: function () { 
+        wx.hideLoading();
+        wx.showToast({
+          title: '成功',
+          icon: 'success',
+          duration: 1500
+        })
+      }
+    })
   }
 })

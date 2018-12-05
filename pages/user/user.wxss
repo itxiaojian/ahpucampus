@@ -20,6 +20,15 @@ page{
   background: #fff;
 }
 
+.userinfo-refreash {
+  width: 48rpx;
+  height: 48rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+  border: 4rpx #fff solid;
+  background: #fff;
+}
+
 .userinfo-nickname {
   color: #fff;
 }

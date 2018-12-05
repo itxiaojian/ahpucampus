@@ -14,7 +14,7 @@ var util = require('util.js');
  */
 function doPost(url, message, postData, token, doSuccess, doFail) {
 
-  wx.showNavigationBarLoading()
+  // wx.showNavigationBarLoading()
   if (message != "") {
     wx.showLoading({
       title: message,
@@ -53,11 +53,11 @@ function doGet(url, doSuccess, doFail) {
     },
     method: 'GET',
     success: function (res) {
-      wx.hideNavigationBarLoading()
+      // wx.hideNavigationBarLoading()
       doSuccess(res.data);
     },
     fail: function () {
-      wx.hideNavigationBarLoading()
+      // wx.hideNavigationBarLoading()
       doFail();
     },
   })
@@ -70,8 +70,8 @@ function jwt4params(params){
   }
   var _object = CusBase64.CusBASE64.encoder(JSON.stringify(params));
   var sign = md5.hexMD5(_object + randomKey);
-  console.log("sign===" + sign);
-  console.log("_object===" + _object);
+  // console.log("sign===" + sign);
+  // console.log("_object===" + _object);
   return new BaseTransferEntity(sign,_object);
 }
 function BaseTransferEntity(sign,_object){
@@ -85,7 +85,7 @@ function request(url, params, success, fail) {
 
 function requestLoading(url, params, message, success, fail) {
   //console.log(params)
-  wx.showNavigationBarLoading()
+  // wx.showNavigationBarLoading()
   if (message != "") {
     wx.showLoading({
       title: message,
@@ -101,7 +101,7 @@ function requestLoading(url, params, message, success, fail) {
     method: 'POST',
     success: function (res) {
       //console.log(res.data)
-      wx.hideNavigationBarLoading()
+      // wx.hideNavigationBarLoading()
       if (res.data != 0){      
 
         if (res.statusCode == 200) {
@@ -116,13 +116,14 @@ function requestLoading(url, params, message, success, fail) {
 
     },
     fail: function (res) {
-      wx.hideNavigationBarLoading()
+      // wx.hideNavigationBarLoading()
       if (message != "") {
         wx.hideLoading()
       }
       fail()
     },
     complete: function (res) {
+      // wx.hideNavigationBarLoading();
       wx.stopPullDownRefresh();
     },
   })

@@ -41,7 +41,7 @@ function formatTime(date) {
   //var second = date.getSeconds()
 
 
-  return [month, day].map(formatNumber).join('-') + ' ' + [hour, minute].map(formatNumber).join(':')
+  return [month, day].map(formatNumber)+""+[hour, minute].map(formatNumber)
 }
 
 function formatNumber(n) {

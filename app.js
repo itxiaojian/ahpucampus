@@ -93,11 +93,11 @@ App({
     httprequest.doPost(that.globalData.API_URL + "/hello", "", user,that.globalData.userInfo.token,
       function (res) {
         wx.hideNavigationBarLoading()
-        console.log("用户信息保存成功" + JSON.stringify(user));
+        // console.log("用户信息保存成功" + JSON.stringify(user));
       },
       function (res) {
         wx.hideNavigationBarLoading()
-        console.log("用户信息保存失败" + JSON.stringify(user));
+        // console.log("用户信息保存失败" + JSON.stringify(user));
       });
   },
 
