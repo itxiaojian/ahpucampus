@@ -14,7 +14,7 @@ App({
     console.log('App onShow');
     var that = this;
     var currentUser = util.getCurrentUser();
-    if(!util.isNotNull(currentUser.openId)){
+    if(util.isNotNull(currentUser.openId)){
       var url = that.globalData.API_URL + '/auth?openId=' + currentUser.openId;
       httprequest.doGet(url,function(res){
         console.log("onShow" + JSON.stringify(res));
