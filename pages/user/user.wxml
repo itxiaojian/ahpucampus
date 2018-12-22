@@ -7,13 +7,13 @@
   </view>
   <view class="usermotto">
     <navigator class="list_a" url="../ulist/ulist?openid={{openid}}">
-        信息管理
+        消息
     </navigator>
     <navigator class="list_b" url="../lianx/lianx">
-        联系我们
+        设置
     </navigator>
     <navigator class="list_b" url="../about/about">
-        关于我们
+        关于
     </navigator>
     <block wx:if="{{userInfo.openId == 'oDpaP4nogLDCUGdAtYzge_esrYLo'}}">
     <navigator class="list_b" url="../test/test">

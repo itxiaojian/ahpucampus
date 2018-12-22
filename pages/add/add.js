@@ -1,4 +1,6 @@
 var bmap = require('../../utils/bmap-wx.js');
+var util = require('../../utils/util.js');
+var httprequest = require('../../utils/httprequest.js');
 var wxMarkerData = [];  
 var app = getApp();
 Page({
@@ -6,21 +8,40 @@ Page({
     ak:"HlywG465vNEBwWOm98Exbt3ZwB2nk2VF", 
     markers: [],    
     longitude:'',    
-    latitude:'',    
-    address:'获取中...',    
+    latitude:'', 
+    province:'',
+    city:'',
+    district:'',  
+    detailAddress:'获取中...',    
     index: 0,
     date: '2017-01-01',
     isChecked: true,
     isChecksd: false,
     labels:"丢失日期",
-    openid: 0,
     imglist: [],
     item: '../../image/upic.png',
     loading: false,
     disabled: false,
     loadingHide: true,
     loadingText: "位置获取中",
-    content:''
+    content:'',
+    userInfo: {}
+  },
+
+  onLoad: function () {
+    this.getBaiduMap();
+  },
+
+  onShow: function () {
+    var that = this;
+    //先从缓存中赋值当前页面用户信息
+    var currentUser = util.getCurrentUser();
+    that.setData({
+      userInfo: currentUser,
+      disabled: false,
+      loading: false,
+      content: '',
+    })
   },
 
   bindDateChange: function (e) {
@@ -57,7 +78,6 @@ Page({
     }else if (isChecksd == true) {
       var rid = 1;
     }
-    var openid = that.data.openid;
     if (content.length === 0){
       wx.showToast({
         title: '描述没填写',
@@ -70,15 +90,14 @@ Page({
         icon: 'loading',
         duration: 4000
       })
-      wx.request({
-        url: app.globalData.API_URL + 'addData/rid/' + rid + '/openid/' + openid,
-        data: formData,
-        header: {
-          'Content-Type': 'application/json'
-        },
-        method: 'GET',
-        success: function (res) {
-            var aid = res.data;
+
+
+      httprequest.doPost(app.globalData.API_URL + "/message/save", "", formData, app.globalData.userInfo.token,
+        function (res) {
+          console.log(JSON.stringify(res));
+          wx.hideNavigationBarLoading()
+          if(res.data.success){
+            var aid = res.data.data.messageId;
             if (imglist != '') {
               for (var i = 0; i < imglist.length; i++) {
                 wx.uploadFile({
@@ -108,13 +127,13 @@ Page({
                         wx.switchTab({
                           url: '../index/index',
                         })
-                      }, 2000) 
+                      }, 2000)
                     }
                   }
                 })
               }
-             
-          }else {
+
+            } else {
               wx.showToast({
                 title: '发布成功',
                 icon: 'success',
@@ -128,64 +147,23 @@ Page({
                 wx.switchTab({
                   url: '../index/index',
                 })
-              }, 2000) 
+              }, 2000)
+            }
           }
-        }
-      })
+        },
+        function (res) {
+          wx.hideNavigationBarLoading()
+          // console.log("用户信息保存失败" + JSON.stringify(user));
+        });
     }
   }, 
 
-  upsUid: function(e){
-    var openid = e.data;
-    wx.request({
-      url: app.globalData.API_URL + 'seachUser/openid/' + openid,
-      header: {
-        'content-type': 'application/json'
-      },
-      success: function (res) {
-        if(res.data != 0){
-          wx.navigateTo({
-            //url: '../mobile/mobile',
-          })
-        }
-      }
-    })
-  },
 
-  onLoad:function(){
-    this.getBaiduMap();
-  },
-
-  onShow: function(){
-    var that = this;
-    that.setData({
-      disabled: false,
-      loading: false,
-      content:''
-    })
-    wx.login({
-      success: function (loginCode) {
-        wx.request({
-          url: app.globalData.API_URL + 'GetOpenid/code/' + loginCode.code,
-          header: {
-            'content-type': 'application/json'
-          },
-          success: function (res) { 
-            that.upsUid(res);
-            that.setData({
-              openid: res.data
-            })
-          }
-        })
-      }
-    })
-    
-  },
 
   checkimg: function () {
     self = this
     wx.chooseImage({
-      count: 1, 
+      count: 3, 
       sizeType: ['original', 'compressed'], 
       sourceType: ['album', 'camera'],
       success: function (res) {
@@ -212,26 +190,31 @@ Page({
           that.setData({  
             latitude: 0,    
             longitude: 0,
-            address:'火星网友一枚'
+            detailAddress:'火星网友一枚'
           })
         }else{
           that.setData({
             latitude: 0,    
             longitude: 0,
-            address:'火星网友一枚'
+            detailAddress:'火星网友一枚'
           })
         }
         setTimeout(function () {
           that.setData({ loadingHide: true });
         }, 1000)  
     };     
-    var success = function(data) {  
+    var success = function(data) {
+      console.log("百度地图返回" + JSON.stringify(data));  
         wxMarkerData = data.wxMarkerData;
+      var addressComponent = data.originalData.result.addressComponent;
         that.setData({     
             markers: wxMarkerData,    
             latitude: wxMarkerData[0].latitude,    
             longitude: wxMarkerData[0].longitude,    
-            address: wxMarkerData[0].address,    
+            detailAddress: wxMarkerData[0].address,  
+            province:addressComponent.province,
+            city:addressComponent.city,
+            district:addressComponent.district 
         }); 
         setTimeout(function () {
           that.setData({ loadingHide: true });

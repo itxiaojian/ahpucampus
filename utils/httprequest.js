@@ -1,4 +1,3 @@
-var app = getApp();
 var CusBase64 = require('base64.js');
 var md5 = require('md5.js'); 
 var util = require('util.js');
@@ -19,10 +18,6 @@ function doPost(url, message, postData, token, doSuccess, doFail) {
     wx.showLoading({
       title: message,
     })
-  }
-
-  if (util.isNull(token)){
-    token = app.globalData.userInfo.token;
   }
 
   wx.request({
@@ -65,13 +60,8 @@ function doGet(url, doSuccess, doFail) {
 
 function jwt4params(params){
   var randomKey = params.randomKey;
-  if (util.isNull(randomKey)){
-    randomKey = app.globalData.userInfo.randomKey;
-  }
   var _object = CusBase64.CusBASE64.encoder(JSON.stringify(params));
   var sign = md5.hexMD5(_object + randomKey);
-  // console.log("sign===" + sign);
-  // console.log("_object===" + _object);
   return new BaseTransferEntity(sign,_object);
 }
 function BaseTransferEntity(sign,_object){
@@ -82,7 +72,6 @@ function BaseTransferEntity(sign,_object){
 function request(url, params, success, fail) {
   this.requestLoading(url, params, "", success, fail)
 }
-
 function requestLoading(url, params, message, success, fail) {
   //console.log(params)
   // wx.showNavigationBarLoading()
