@@ -7,9 +7,7 @@
 <view class="addMain">
 
   <view class="mbTxing">
-    <text>【注】当前所发信息将覆盖周边50公里范围</text>
-    <text>【意】全芜湖市附近小程序基本都可以看到</text>
-    <text>【啦】违法广告信息将会被管理员永久禁言</text>
+    <text>【*】违法广告信息将会被管理员永久禁言</text>
   </view>
   <form bindsubmit="formSubmit">
   <input type="text" name="openId" value="{{userInfo.openId}}" hidden="true"></input>
@@ -20,6 +18,7 @@
     <input type="text" name="city" value="{{city}}" hidden="true"></input>
     <input type="text" name="district" value="{{district}}" hidden="true"></input>
     <input type="text" name="detailAddress" value="{{detailAddress}}" hidden="true"></input>
+    <input type="text" name="messageType" value="{{messageType}}" hidden="true"></input>
     <view class="xuanBtn">
       <button class="{{isChecked?'is_checked':'diuBtn'}}" bindtap="diushi">丢了东西</button>
       <view class="xuanLine"></view>
@@ -34,7 +33,7 @@
     <view class="mbInput">
       <!--物品描述+图片上传-->
       <view class="miaoshu">
-        <textarea placeholder="对物品的描述" class="section" maxlength="100" name="content" value='{{content}}' />
+        <textarea placeholder="请输入要发布的内容" class="section" maxlength="100" name="content" value='{{content}}' />
         <view bindtap="checkimg">
           <image wx:for="{{imglist}}" class="uploadPics" mode="aspectFill" src="{{item}}" wx:key=""></image>
           <image src="../../image/upic.png" class="uploadPic" mode="widthFix"></image>

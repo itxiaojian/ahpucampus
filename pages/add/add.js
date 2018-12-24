@@ -17,6 +17,7 @@ Page({
     date: '2017-01-01',
     isChecked: true,
     isChecksd: false,
+    messageType:0,
     labels:"丢失日期",
     imglist: [],
     item: '../../image/upic.png',
@@ -54,6 +55,7 @@ Page({
     this.setData({
       isChecksd: false,
       isChecked: true,
+      messageType: 0,
       labels:"丢失日期"
     })
   },
@@ -62,6 +64,7 @@ Page({
     this.setData({
       isChecked: false,
       isChecksd: true,
+      messageType: 1,
       labels: "捡到日期"
     })
   },
