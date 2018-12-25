@@ -1,18 +1,20 @@
-var bmap = require('../../utils/bmap-wx.js');
+var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
 var util = require('../../utils/util.js');
 var httprequest = require('../../utils/httprequest.js');
 var wxMarkerData = [];  
 var app = getApp();
+var qqmapsdk;
 Page({
-  data: {
-    ak:"HlywG465vNEBwWOm98Exbt3ZwB2nk2VF", 
+  data: { 
     markers: [],    
     longitude:'',    
-    latitude:'', 
+    latitude:'',
+    realLongitude:'',
+    realLatitude:'',
     province:'',
     city:'',
     district:'',  
-    detailAddress:'获取中...',    
+    detailAddress:'',    
     index: 0,
     date: '2017-01-01',
     isChecked: true,
@@ -30,7 +32,27 @@ Page({
   },
 
   onLoad: function () {
-    this.getBaiduMap();
+    // 实例化API核心类
+    qqmapsdk = new QQMapWX({
+      key: app.globalData.qqmapKey
+    });
+    this.getrealLocaltion();
+  },
+  getrealLocaltion:function(){
+    var that = this;
+    wx.getLocation({
+      success: function(res) {
+        console.log("getrealLocaltion===" +JSON.stringify(res));
+        that.setData({
+          realLongitude:res.longitude,
+          realLatitude:res.latitude,
+
+        })
+      },
+      fail: function (err) {
+        console.log(err);
+      }
+    })
   },
 
   onShow: function () {
@@ -99,22 +121,24 @@ Page({
         function (res) {
           console.log(JSON.stringify(res));
           wx.hideNavigationBarLoading()
-          if(res.data.success){
-            var aid = res.data.data.messageId;
+          if(res.success){
+            var aid = res.data.messageId;
             if (imglist != '') {
               for (var i = 0; i < imglist.length; i++) {
                 wx.uploadFile({
-                  url: app.globalData.API_URL + 'upload/pid/' + aid,
+                  url: app.globalData.API_URL + '/messagefile/upload',
                   filePath: imglist[0],
                   name: 'files',
                   formData: {
-                    'pid': aid
+                    'pid': aid,
+                    'formData': JSON.stringify(e.detail.value)
                   },
                   method: 'GET',
                   header: {
                     'Content-Type': 'application/json'
                   },
                   success: function (res) {
+                    console.log('successmessagefile/upload' + JSON.stringify(res));
                     if (i >= imglist.length) {
                       wx.showToast({
                         title: '发布成功',
@@ -132,6 +156,9 @@ Page({
                         })
                       }, 2000)
                     }
+                  },
+                  fail:function(res){
+                    console.log('failmessagefile/upload'+JSON.stringify(res));
                   }
                 })
               }
@@ -179,8 +206,59 @@ Page({
   },
 
   clearGps: function(){
-    this.getBaiduMap();
+    this.onChangeAddress();
   },
+
+  //移动选点
+  onChangeAddress: function () {
+    var that = this;
+    wx.chooseLocation({
+      success: function (res) {
+        console.log(JSON.stringify(res));
+        that.setData({
+          latitude: res.latitude,
+          longitude: res.longitude,
+          detailAddress: res.name
+        });
+        that.getlocationDetial(res.latitude, res.longitude);
+      },
+      fail: function (err) {
+        console.log(err);
+        that.setData({
+          latitude: 0,
+          longitude: 0,
+          detailAddress: '火星网友一枚'
+        })
+      }
+    });
+  },
+
+  getlocationDetial: function (latitude, longitude){
+    var that = this;
+    // 调用接口
+    qqmapsdk.reverseGeocoder({
+      location: {
+        latitude: latitude,
+        longitude: longitude
+      },
+      success: function (res) {
+        console.log(res);
+        var addressComponent = res.result.address_component;
+        that.setData({
+          province: addressComponent.province,
+          city: addressComponent.city,
+          district: addressComponent.district
+        })
+      },
+      fail: function (res) {
+        console.log(res);
+      },
+      complete: function (res) {
+        console.log(res);
+      }
+    });
+  },
+
   getBaiduMap: function (){     
     var that = this;    
     that.setData({ loadingHide: false });

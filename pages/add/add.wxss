@@ -10,6 +10,7 @@ page {
   padding: 0 5%;
   border-top: 2rpx #ECECEC solid;
   border-bottom: 2rpx #ECECEC solid;
+  margin-top: 30rpx;
 }
 .tels{
   border-bottom: 2rpx #F5F5F5 solid; padding: 25rpx 0
@@ -70,7 +71,7 @@ page {
 
 /* 获取当前位置 */
 .getGps{
-  width: 92%; background: #FCFCFC; border-top: 2rpx #ECECEC solid; padding:3% 4%; font-size: 14px; color: #999;   margin-top: 30rpx;
+  width: 92%; background: #FCFCFC;  padding:3% 4%; font-size: 14px; color: #999;
 }
 .getGps label{
   margin-right: 20rpx;

@@ -103,6 +103,7 @@ App({
 
   globalData: {
     userInfo: null,
-    API_URL:'http://localhost:8086'
+    API_URL:'http://localhost:8086',
+    qqmapKey:'D6JBZ-EPHWF-SHWJZ-J2T64-IHUI5-KZBJO'
   }
 })
