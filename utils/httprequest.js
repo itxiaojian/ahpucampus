@@ -11,7 +11,7 @@ var util = require('util.js');
  * doFail：失败的回调函数
  * token: jwt token
  */
-function doPost(url, message, postData, token, doSuccess, doFail) {
+function doPost(url, message, postData, token, doSuccess, doFail, docomplete) {
 
   // wx.showNavigationBarLoading()
   if (message != "") {
@@ -36,6 +36,11 @@ function doPost(url, message, postData, token, doSuccess, doFail) {
     fail: function () {
       doFail();
     },
+    complete:function(){
+       if(docomplete!=undefined){
+          docomplete();
+       }
+    }
   })
 }
 

@@ -135,7 +135,8 @@ Page({
                   },
                   method: 'GET',
                   header: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                     "Authorization": "Bearer " + app.globalData.userInfo.token
                   },
                   success: function (res) {
                     console.log('successmessagefile/upload' + JSON.stringify(res));
@@ -147,6 +148,7 @@ Page({
                       })
                       that.setData({
                         imglist: [],
+                        detailAddress:'',
                         loading: true,
                         disabled: true
                       })
