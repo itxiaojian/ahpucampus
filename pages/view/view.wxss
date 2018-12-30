@@ -29,7 +29,8 @@
 
 .UserName .UserDate{
   flex: 2;
-  text-align: right; height: 80rpx; line-height: 80rpx; color: #999
+  text-align: right; height: 80rpx; line-height: 80rpx; color: #999;
+  font-size:9px
 }
 
 .content{

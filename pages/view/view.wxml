@@ -8,10 +8,10 @@
 	<view class="UserName">
 	<view class="UserPic">
 	  <image src="{{views.headimgurl}}"></image>
-	  <text>{{views.wxname}}</text>
+	  <text>{{views.nickName}}</text>
 	</view>
 	<view class="UserDate">
-	  <text>{{views.datetime}}</text>
+	  <text>{{views.createtime}}</text>
 	</view>
 	</view>
 
@@ -38,7 +38,7 @@
 
 <!-- 获取发布位置 -->
 <view class='getGps'>  
-    <text bindtap='openMaps' data-long="{{views.long}}" data-lat="{{views.lat}}" data-address="{{views.address}}">发布于：{{views.address}}</text>
+    <text bindtap='openMaps' data-long="{{views.longitude}}" data-lat="{{views.latitude}}" data-address="{{views.detailAddress}}">发布于：{{views.detailAddress}}</text>
     <image src="../../image/map.png" class="mapIco" mode="widthFix"></image>
 </view>
 <view class="mbTxing">

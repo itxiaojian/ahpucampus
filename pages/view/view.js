@@ -5,7 +5,7 @@ Page({
   data: {
     views:'',
     picUrl: "https://0001.kuufuu.com/",
-    openid:'',
+    openId:'',
     windowWidth:'',
     windowHeight:'',
     contents:'',
@@ -64,7 +64,7 @@ Page({
         url: app.globalData.API_URL + 'getGuanzhu/',
         data: {
           cid: 1,
-          openid: that.data.openid,
+          openId: that.data.openId,
           vid: that.data.vid,
           avatar: userInfo.avatarUrl,
           uname: userInfo.nickName
@@ -95,6 +95,13 @@ Page({
   onLoad: function (params) {
     var that = this;
     wx.showNavigationBarLoading(); 
+    
+    app.getUserInfo(function (userInfo) {
+        that.setData({
+           userInfo: userInfo,
+           openId: userInfo.openId
+        })
+     })
     var em = {}, emChar = that.data.emojiChar.split("-");
     var emojis = []
     that.data.emoji.forEach(function (v, i) {
@@ -108,53 +115,44 @@ Page({
       emojis: emojis
     })
     that.umessage(params.id); 
-    wx.request({
-      url: app.globalData.API_URL + 'view/id/' + params.id,
-      data: {},
-      method: 'GET',
-      success: function (res) {
-        var mobile = res.data.tel.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+
+     var data = {
+        'messageId': params.id,
+        'randomKey': that.data.userInfo.randomKey
+     };
+httprequest.doPost(
+   app.globalData.API_URL + "/message/queryDetail",
+      "",
+      data,
+      app.globalData.userInfo.token,
+      function (res) {
+         var mobile = res.data.telephone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
         that.setData({
-          views: res.data,
-          contents: res.data.contents,
-          vid: res.data.id,
-          tel: res.data.tel,
-          mobile:mobile,
-          view_id: params.id,
-          gzList: res.data.gzlist
+           views: res.data,
+           contents: res.data.content,
+           vid: res.data.id,
+           tel: res.data.telephone,
+           mobile: res.data.telephone,
+           view_id: params.id
+          //gzList: res.data.gzlist
         })
         wx.showLoading({
           title: '加载中'
         })
       },
-      complete: function () {
-        setTimeout(function () {
-          wx.hideLoading()
-        }, 1000)
-        wx.hideNavigationBarLoading() 
+      function () {
+         setTimeout(function () {
+            wx.hideLoading()
+         }, 1000)
+         wx.hideNavigationBarLoading()
+      },
+      function () {
+         setTimeout(function () {
+            wx.hideLoading()
+         }, 1000)
+         wx.hideNavigationBarLoading()
       }
-    })
-    wx.login({
-      success: function (loginCode) {
-        wx.request({
-          url: app.globalData.API_URL + '/GetOpenid/code/' + loginCode.code,
-          header: {
-            'content-type': 'application/json'
-          },
-          success: function (res) {
-            that.setData({
-              openid: res.data
-            })
-          }
-        })
-      }
-    })
-
-    app.getUserInfo(function (userInfo) {
-      that.setData({
-        userInfo: userInfo
-      })
-    })
+);
     setTimeout(function () {
       that.getGuanzhu(1);
     }, 5000) 
@@ -311,7 +309,7 @@ Page({
         url: app.globalData.API_URL + 'ad_message/vid/' + vid,
         data: {
           content: that.data.content,
-          openid: that.data.openid,
+          openId: that.data.openId,
           avatar: userInfo.avatarUrl,
           uname: userInfo.nickName,
           time: util.formatTime(new Date())

@@ -4,9 +4,9 @@
         <view class="UserName">
           <view class="UserPic">
             <image src="{{item.headimgurl}}"></image>
-            <text>{{item.wxname}}</text>
+            <text>{{item.nickName}}</text>
           </view>
-          <view class="UserDate-a" wx:if="{{item.rid == 1}}">
+          <view class="UserDate-a" wx:if="{{item.messageType == 1}}">
               捡到如下物品
           </view>
           <view class="UserDate-b" wx:else>  
@@ -23,7 +23,7 @@
           </view>
       <view class="datetime">
           <label class="pl"><image src="../../image/pl.png" class="plimg"></image>{{item.plnum}}</label>
-          <label class="tm"><image src="../../image/time.png" class="tmimg"></image>{{item.datetime}}</label>
+          <label class="tm"><image src="../../image/time.png" class="tmimg"></image>{{item.createtime}}</label>
       </view>  
       </navigator>
     </view>

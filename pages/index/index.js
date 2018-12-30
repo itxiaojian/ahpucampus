@@ -13,6 +13,7 @@ var GetList = function (that) {
   var data = {
      'page': page,
      'pageSize': page_size,
+     'activeIndex': that.data.activeIndex,
      'randomKey': that.data.userInfo.randomKey
   };
 
