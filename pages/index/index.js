@@ -65,7 +65,7 @@ var GetList = function (that) {
 }
 Page({
   data: {
-    picUrl: "https://0001.kuufuu.com/",
+     picUrl: app.globalData.API_URL + "/messagefile/getFile/preview/",
     hidden: true,
     list: [],
     scrollTop: 0,
@@ -121,26 +121,5 @@ Page({
       title: '童鞋，你有一条失物招领的消息！',
       path: '/pages/index/index'
     }
-  },
-  onReady: function () {
-    // 生命周期函数--监听页面初次渲染完成
-    console.log("test1 onReady");
-  },
-
-  onHide: function () {
-    // 生命周期函数--监听页面隐藏
-    console.log("test1 onHide");
-  },
-  onUnload: function () {
-    // 生命周期函数--监听页面卸载
-    console.log("test1 onUnload");
-  },
-  onPullDownRefresh: function () {
-    // 页面相关事件处理函数--监听用户下拉动作
-    console.log("test1 onPullDownRefresh");
-  },
-  onReachBottom: function () {
-    // 页面上拉触底事件的处理函数
-    console.log("test1 onReachBottom");
   }
 })

@@ -195,7 +195,7 @@ Page({
   checkimg: function () {
     self = this
     wx.chooseImage({
-      count: 3, 
+      count: 1, 
       sizeType: ['original', 'compressed'], 
       sourceType: ['album', 'camera'],
       success: function (res) {

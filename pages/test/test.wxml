@@ -16,7 +16,7 @@
                 <block wx:for="{{[1,2,3,4,5,6,7,8]}}" wx:key="*this">
                     <view class="item-ans">
                         <view class="avatar">
-                            <image class="img" src="http://ookzqad11.bkt.clouddn.com/avatar.png"></image>
+                            <image class="img" src="https://ss0.bdstatic.com/k4oZeXSm1A5BphGlnYG/icon/95488.png"></image>
                         </view>
                         <view class="expertInfo">
                             <view class="name">欢颜</view>

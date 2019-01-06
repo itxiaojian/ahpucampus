@@ -4,7 +4,7 @@ var httprequest = require('../../utils/httprequest.js');
 Page({
   data: {
     views:'',
-    picUrl: "https://0001.kuufuu.com/",
+     picUrl: app.globalData.API_URL + "/messagefile/getFile/original/",
     openId:'',
     windowWidth:'',
     windowHeight:'',
