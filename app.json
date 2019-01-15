@@ -18,6 +18,11 @@
     "enablePullDownRefresh": true,
     "backgroundTextStyle":"dark"
   },
+  "permission": {
+   "scope.userLocation": {
+      "desc": "位置信息将用于失物招领效果展示"
+   }
+},
   "tabBar": {
       "color": "#b7b7b7",
       "selectedColor": "#7acfa6",
