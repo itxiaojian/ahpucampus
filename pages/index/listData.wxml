@@ -14,7 +14,7 @@
           </view>
         </view>
         <text class="textCms">{{item.content}}</text>
-        <view class="viPhoto" wx:if="{{item.photo != null}}">
+        <view class="viPhoto" wx:if="{{item.photo != 0}}">
             <view class="wiPhoto">
               <block>
               <image class="poster" src="{{picUrl}}{{item.photo}}" mode="aspectFill"></image>
