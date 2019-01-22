@@ -25,6 +25,7 @@ var GetList = function (that) {
       data,
       app.globalData.userInfo.token,
       function (res) {
+        console.log("/message/queryList==="+JSON.stringify(res));
          var list = that.data.list;
          var whdthNum = res.data.list.length;
          if (whdthNum == 0) {

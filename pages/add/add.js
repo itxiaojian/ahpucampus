@@ -46,7 +46,6 @@ Page({
         that.setData({
           realLongitude:res.longitude,
           realLatitude:res.latitude,
-
         })
       },
       fail: function (err) {
@@ -62,8 +61,8 @@ Page({
     that.setData({
       userInfo: currentUser,
       disabled: false,
-      loading: false,
-      content: '',
+      loading: false
+      //content: '',
     })
   },
 
@@ -72,6 +71,12 @@ Page({
       date: e.detail.value
     })
   },
+
+  bindTextAreaBlur: function (e) {
+    this.setData({
+      content: e.detail.value
+    })
+  }, 
 
   diushi:function(){
     this.setData({
@@ -173,7 +178,8 @@ Page({
               })
               that.setData({
                 loading: true,
-                disabled: true
+                disabled: true,
+                content: ''
               })
               setTimeout(function () {
                 wx.switchTab({
@@ -208,6 +214,7 @@ Page({
   },
 
   clearGps: function(){
+    var that = this;
     this.onChangeAddress();
   },
 
@@ -216,20 +223,21 @@ Page({
     var that = this;
     wx.chooseLocation({
       success: function (res) {
-        console.log(JSON.stringify(res));
+        console.log("wx.chooseLocation==="+JSON.stringify(res));
         that.setData({
           latitude: res.latitude,
           longitude: res.longitude,
           detailAddress: res.name
         });
         that.getlocationDetial(res.latitude, res.longitude);
+        console.log("that.data.content===" + that.data.content);
       },
       fail: function (err) {
         console.log(err);
         that.setData({
           latitude: 0,
           longitude: 0,
-          detailAddress: '火星网友一枚'
+          detailAddress: ''
         })
       }
     });
@@ -244,7 +252,7 @@ Page({
         longitude: longitude
       },
       success: function (res) {
-        console.log(res);
+        console.log("getlocationDetial===="+JSON.stringify(res));
         var addressComponent = res.result.address_component;
         that.setData({
           province: addressComponent.province,
