@@ -63,16 +63,16 @@ Page({
  * 更新头像信息
  */
   refreash : function(){
-    var m = util.formatTime(new Date);
+     var formatTime = util.formatTime(new Date);
     var count = wx.getStorageSync('refreashcount');
-    console.log("m", m); 
+     console.log("formatTime", formatTime); 
     console.log("count", count);
-    if (m != wx.getStorageSync('m') || count == undefined) {
+     if (formatTime != wx.getStorageSync('formatTime') || count == undefined) {
       if (count = 5 || count == undefined) { 
         count = 0; 
         wx.setStorageSync('refreashcount', count);
         }
-      wx.setStorageSync('m', m);
+        wx.setStorageSync('formatTime', formatTime);
       this.getUserInfo();
       count++;
       wx.setStorageSync('refreashcount', count);

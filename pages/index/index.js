@@ -10,6 +10,18 @@ var GetList = function (that) {
   });
   wx.showNavigationBarLoading();
 
+   var switchTabFromAdd = util.getStorageSync("switchTabFromAdd");
+   if (switchTabFromAdd) {
+      var activeIndexFromAdd = util.getStorageSync("activeIndexFromAdd");
+      page = 0;
+      that.setData({
+         list: [],
+         activeIndex: activeIndexFromAdd
+      });
+      util.removeStorageSync("switchTabFromAdd");
+      util.removeStorageSync("activeIndexFromAdd");
+   }
+
   var data = {
      'page': page,
      'pageSize': page_size,
@@ -17,7 +29,7 @@ var GetList = function (that) {
      'randomKey': that.data.userInfo.randomKey
   };
 
-  console.log(JSON.stringify(data));
+   console.log("/message/queryList===参数"+JSON.stringify(data));
 
    httprequest.doPost(
       app.globalData.API_URL + "/message/queryList",
@@ -25,35 +37,37 @@ var GetList = function (that) {
       data,
       app.globalData.userInfo.token,
       function (res) {
-        console.log("/message/queryList==="+JSON.stringify(res));
-         var list = that.data.list;
-         var whdthNum = res.data.list.length;
-         if (whdthNum == 0) {
-         that.setData({
-            ShdthNum: whdthNum
-         });
-         }
-         if (whdthNum != 0){
-            for (var i = 0; i < res.data.list.length; i++) {
-            list.push(res.data.list[i]);
-         }
-         setTimeout(function () {
-            that.setData({
-               list: list
-            });
-         }, 300)
-         page++;
-         setTimeout(function () {
-            that.setData({
-               hidden: true
-            });
-         }, 4000)
-         }else{
-         that.setData({
-            hidden: true,
-            display: false
-         });
-         }
+        console.log("/message/queryList===返回"+JSON.stringify(res));
+        if(res.code == 200){
+           var list = that.data.list;
+           var whdthNum = res.data.list.length;
+           if (whdthNum == 0) {
+              that.setData({
+                 ShdthNum: whdthNum
+              });
+           }
+           if (whdthNum != 0) {
+              for (var i = 0; i < res.data.list.length; i++) {
+                 list.push(res.data.list[i]);
+              }
+              setTimeout(function () {
+                 that.setData({
+                    list: list
+                 });
+              }, 300)
+              page++;
+              setTimeout(function () {
+                 that.setData({
+                    hidden: true
+                 });
+              }, 4000)
+           } else {
+              that.setData({
+                 hidden: true,
+                 display: false
+              });
+           }
+        }  
     },
       function () {
          wx.hideNavigationBarLoading();

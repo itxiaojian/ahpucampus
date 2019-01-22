@@ -147,7 +147,7 @@ Page({
                     console.log('successmessagefile/upload' + JSON.stringify(res));
                     if (i >= imglist.length) {
                       wx.showToast({
-                        title: '发布成功',
+                        title: '发布成功，正在跳转',
                         icon: 'success',
                         duration: 3000
                       })
@@ -155,7 +155,8 @@ Page({
                         imglist: [],
                         detailAddress:'',
                         loading: true,
-                        disabled: true
+                        disabled: true,
+                        content:''
                       })
                       setTimeout(function () {
                         wx.switchTab({
@@ -181,6 +182,8 @@ Page({
                 disabled: true,
                 content: ''
               })
+              util.setStorageSync("switchTabFromAdd",true);
+               util.setStorageSync("activeIndexFromAdd", rid);
               setTimeout(function () {
                 wx.switchTab({
                   url: '../index/index',

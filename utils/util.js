@@ -19,6 +19,18 @@ function getCurrentUser() {
   return wx.getStorageSync("currentUser");
 }
 
+function setStorageSync(key, value) {
+   wx.setStorageSync(key, value);
+}
+
+function getStorageSync(key) {
+   return wx.getStorageSync(key);
+}
+
+function removeStorageSync(key) {
+   wx.removeStorageSync(key);
+}
+
 function isNull(obj){
   if(obj == undefined || JSON.stringify(obj)=='{}'){
     return true;
@@ -53,6 +65,9 @@ module.exports = {
   formatTime: formatTime,
   setCurrentUser: setCurrentUser,
   getCurrentUser: getCurrentUser,
+  setStorageSync: setStorageSync,
+  getStorageSync: getStorageSync,
+  removeStorageSync: removeStorageSync,
   isNull: isNull,
   isNotNull: isNotNull
 }
