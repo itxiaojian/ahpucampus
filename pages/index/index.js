@@ -67,7 +67,12 @@ var GetList = function (that) {
                  display: false
               });
            }
-        }  
+        }else{
+          that.setData({
+            hidden: true,
+            display: false
+          });
+        }
     },
       function () {
          wx.hideNavigationBarLoading();

@@ -14,6 +14,7 @@ App({
     console.log('App onShow');
     var that = this;
     var currentUser = util.getCurrentUser();
+    console.log("util.getCurrentUser()" + JSON.stringify(currentUser));
     if(util.isNotNull(currentUser.openId)){
       var url = that.globalData.API_URL + '/auth?openId=' + currentUser.openId;
       httprequest.doGet(url,function(res){
@@ -34,7 +35,8 @@ App({
       function(res){
         console.log("onShow授权失败,系统异常");
       });
-    }else{
+    }
+    else{
       //微信授权，获取openId和jwt-token
       wx.login({
         success: function (loginCode) {
