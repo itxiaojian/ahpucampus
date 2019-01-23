@@ -14,7 +14,7 @@ App({
     console.log('App onShow');
     var that = this;
     var currentUser = util.getCurrentUser();
-    console.log("util.getCurrentUser()" + JSON.stringify(currentUser));
+    console.log("app.js===util.getCurrentUser()" + JSON.stringify(currentUser));
     if(util.isNotNull(currentUser.openId)){
       var url = that.globalData.API_URL + '/auth?openId=' + currentUser.openId;
       httprequest.doGet(url,function(res){
@@ -36,8 +36,8 @@ App({
         console.log("onShow授权失败,系统异常");
       });
     }
-    else{
-      //微信授权，获取openId和jwt-token
+     else{
+       //微信授权，获取openId和jwt-token
       wx.login({
         success: function (loginCode) {
           var url = that.globalData.API_URL + '/auth?code=' + loginCode.code;
@@ -47,9 +47,10 @@ App({
             //获取信息成功后按照当全局>缓存的顺序更新用户信息
             console.log("authorize-user:" + JSON.stringify(res));
             console.log("that.userInfo-beforeauth" + JSON.stringify(that.globalData.userInfo));
+            that.globalData.userInfo = res;
             that.globalData.userInfo.openId = res.openId;
             that.globalData.userInfo.token = res.token;
-            that.globalData.userInfo.randomKey = res.randomKey
+            that.globalData.userInfo.randomKey = res.randomKey;
             console.log("that.data.userInfo-afterauth" + JSON.stringify(that.globalData.userInfo));
             util.setCurrentUser(that.globalData.userInfo);
             console.log("getCurrentUser" + JSON.stringify(util.getCurrentUser()));
@@ -62,7 +63,7 @@ App({
             })
         }
       })
-    }
+     }
 
   },
 

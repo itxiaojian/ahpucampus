@@ -14,35 +14,7 @@ Page({
     wx.getSetting({
       success: function (res) {
         if (res.authSetting['scope.userInfo']) {
-          wx.getUserInfo({
-            success: function (res) {
-              // 用户已经授权过,不需要显示授权页面,所以不需要改变 isHide 的值
-              // 根据自己的需求有其他操作再补充
-              // 我这里实现的是在用户授权成功后，调用微信的 wx.login 接口，从而获取code
-              wx.login({
-                success: res => {
-                  // 获取到用户的 code 之后：res.code
-                  console.log("用户的code:" + res.code);
-                  // 传给后台，再经过解析获取用户的 openid
-                  var url = app.globalData.API_URL + '/auth?code=' + res.code;
-                  httprequest.doGet(url, function (res) {
-                    console.log("onShow" + JSON.stringify(res));
-                    if (res.code == undefined) {
-                      app.globalData.userInfo.token = res.token;
-                      app.globalData.userInfo.randomKey = res.randomKey
-                      util.setCurrentUser(app.globalData.userInfo);
-                      that.setUserInfoAndNext();
-                    } else {
-                      console.log(JSON.stringify(res));
-                    }
-                  },
-                    function (res) {
-                      console.log("onShow授权失败,系统异常");
-                    });                 
-                }
-              });
-            }
-          });
+           that.setUserInfoAndNext();
         } else {
           // 用户没有授权
           // 改变 isHide 的值，显示授权页面
@@ -61,8 +33,18 @@ Page({
       // 获取到用户的信息了，打印到控制台上看下
       console.log("用户的信息如下：");
       console.log(e.detail.userInfo);
-      app.globalData.userInfo = e.detail.userInfo;
-      util.setCurrentUser(e.detail.userInfo);
+      console.log("此时app用户信息：");
+       console.log(JSON.stringify(app.globalData.userInfo));
+       app.globalData.userInfo.avatarUrl = e.detail.userInfo.avatarUrl;
+       app.globalData.userInfo.city = e.detail.userInfo.city;
+       app.globalData.userInfo.country = e.detail.userInfo.country;
+       app.globalData.userInfo.gender = e.detail.userInfo.gender;
+       app.globalData.userInfo.language = e.detail.userInfo.language;
+       app.globalData.userInfo.nickName = e.detail.userInfo.nickName;
+       app.globalData.userInfo.province = e.detail.userInfo.province;
+       console.log("赋值后app用户信息：");
+       console.log(JSON.stringify(app.globalData.userInfo));
+       util.setCurrentUser(app.globalData.userInfo);
       //授权成功后,通过改变 isHide 的值，让实现页面显示出来，把授权页面隐藏起来
       this.setUserInfoAndNext();
       that.setData({
@@ -98,6 +80,6 @@ Page({
       wx.reLaunch({
         url: '../index/index'
       })
-    }, 300)
+    }, 30)
   }
 })

@@ -26,7 +26,7 @@ var GetList = function (that) {
      'page': page,
      'pageSize': page_size,
      'activeIndex': that.data.activeIndex,
-     'randomKey': that.data.userInfo.randomKey
+     'randomKey': app.globalData.userInfo.randomKey
   };
 
    console.log("/message/queryList===参数"+JSON.stringify(data));
@@ -99,12 +99,9 @@ Page({
      var that = this;
     console.log("test1 onLoad");
     //获取用户基本信息
-    app.getUserInfo(function (userInfo) {
-      util.setCurrentUser(userInfo);
-       that.setData({
-         userInfo: userInfo
-      })
-    })
+   that.setData({
+      userInfo: app.globalData.userInfo
+   })
   },
   onShow: function () {
     console.log("test1 onShow");
