@@ -31,15 +31,34 @@ function doPost(url, message, postData, token, doSuccess, doFail, docomplete) {
     method: 'POST',
     success: function (res) {
       //参数值为res.data,直接将返回的数据传入
-      doSuccess(res.data);
+      
+      if (res.statusCode == 200) {
+        if(res.data.code == 200){
+          doSuccess(res.data);
+        }else{
+          wx.showLoading({
+            title: res.data.message,
+          })
+        }
+        
+      } else {
+        doFail();
+      }
+      if (message != "") {
+        wx.hideLoading()
+      }
     },
     fail: function () {
+      if (message != "") {
+        wx.hideLoading()
+      }
       doFail();
     },
     complete:function(){
        if(docomplete!=undefined){
           docomplete();
        }
+      wx.hideLoading();
     }
   })
 }
@@ -74,57 +93,7 @@ function BaseTransferEntity(sign,_object){
   this._object = _object;
 }
 
-function request(url, params, success, fail) {
-  this.requestLoading(url, params, "", success, fail)
-}
-function requestLoading(url, params, message, success, fail) {
-  //console.log(params)
-  // wx.showNavigationBarLoading()
-  if (message != "") {
-    wx.showLoading({
-      title: message,
-    })
-  }
-  wx.request({
-    url: app.globalData.API_URL+url,
-    data: params,
-    header: {
-      //'Content-Type': 'application/json'
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'POST',
-    success: function (res) {
-      //console.log(res.data)
-      // wx.hideNavigationBarLoading()
-      if (res.data != 0){      
-
-        if (res.statusCode == 200) {
-          success(res.data)
-        } else {
-          fail()
-        }
-      }
-      if (message != "") {
-        wx.hideLoading()
-      }
-
-    },
-    fail: function (res) {
-      // wx.hideNavigationBarLoading()
-      if (message != "") {
-        wx.hideLoading()
-      }
-      fail()
-    },
-    complete: function (res) {
-      // wx.hideNavigationBarLoading();
-      wx.stopPullDownRefresh();
-    },
-  })
-}
 module.exports = {
-  request: request,
-  requestLoading: requestLoading,
   doPost: doPost,
   doGet: doGet
 }

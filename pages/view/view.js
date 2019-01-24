@@ -61,7 +61,7 @@ Page({
     var userInfo = that.data.userInfo;
    if(ev == 1){
       wx.request({
-        url: app.globalData.API_URL + 'getGuanzhu/',
+        url: app.globalData.API_URL + '/getGuanzhu',
         data: {
           cid: 1,
           openId: that.data.openId,
@@ -76,7 +76,7 @@ Page({
       })
    }else if(ev == 2){
        wx.request({
-         url: app.globalData.API_URL + 'getGuanzhu/',
+         url: app.globalData.API_URL + '/getGuanzhu',
         data: {
           cid: 2,
           vid: that.data.vid
@@ -120,39 +120,39 @@ Page({
         'messageId': params.id,
         'randomKey': that.data.userInfo.randomKey
      };
-httprequest.doPost(
-   app.globalData.API_URL + "/message/queryDetail",
-      "",
-      data,
-      app.globalData.userInfo.token,
-      function (res) {
-         var mobile = res.data.telephone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
-        that.setData({
-           views: res.data,
-           contents: res.data.content,
-           vid: res.data.id,
-           tel: res.data.telephone,
-           mobile: res.data.telephone,
-           view_id: params.id
-          //gzList: res.data.gzlist
-        })
-        wx.showLoading({
-          title: '加载中'
-        })
-      },
-      function () {
-         setTimeout(function () {
-            wx.hideLoading()
-         }, 1000)
-         wx.hideNavigationBarLoading()
-      },
-      function () {
-         setTimeout(function () {
-            wx.hideLoading()
-         }, 1000)
-         wx.hideNavigationBarLoading()
-      }
-);
+    httprequest.doPost(
+      app.globalData.API_URL + "/message/queryDetail",
+          "",
+          data,
+          app.globalData.userInfo.token,
+          function (res) {
+            var mobile = res.data.telephone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+            that.setData({
+              views: res.data,
+              contents: res.data.content,
+              vid: res.data.id,
+              tel: res.data.telephone,
+              mobile: mobile,
+              view_id: params.id
+              //gzList: res.data.gzlist
+            })
+            wx.showLoading({
+              title: '加载中'
+            })
+          },
+          function () {
+            setTimeout(function () {
+                wx.hideLoading()
+            }, 1000)
+            wx.hideNavigationBarLoading()
+          },
+          function () {
+            setTimeout(function () {
+                wx.hideLoading()
+            }, 1000)
+            wx.hideNavigationBarLoading()
+          }
+    );
     setTimeout(function () {
       that.getGuanzhu(1);
     }, 5000) 
@@ -191,7 +191,7 @@ httprequest.doPost(
   umessage: function (vid){
     var that = this;
     wx.request({
-      url: app.globalData.API_URL + 'up_message/vid/' + vid,
+      url: app.globalData.API_URL + '/up_message/vid/' + vid,
       data: {
         page: 0,
         page_size: that.data.pageSize
@@ -223,7 +223,7 @@ httprequest.doPost(
     var data = {
       vid: that.data.view_id
     }
-    httprequest.requestLoading('up_message/', data, message, function (res) {
+    httprequest.doPost(app.globalData.API_URL+'/up_message/', data, message, function (res) {
       var contentlistTem = that.data.comments
         if (that.data.page == 1) {
           contentlistTem = []

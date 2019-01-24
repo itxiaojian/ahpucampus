@@ -42,7 +42,7 @@
     <image src="../../image/map.png" class="mapIco" mode="widthFix"></image>
 </view>
 <view class="mbTxing">
-  <text>【温馨提示】接到陌生人来电或者短信时，凡涉及到钱财交易，广大网友请提高警惕，谨防上当受骗！</text>
+  <text>【温馨提示】接到陌生人来电或者短信时，凡涉及到钱财交易，广大童鞋请提高警惕，谨防上当受骗！</text>
 </view>
 <view class='zhuan'>
   <button open-type="share">让大家帮忙找一找</button>
