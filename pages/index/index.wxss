@@ -60,7 +60,7 @@ page{
 }
 .datetime{ font-size: 26rpx; color: #CDCDCD; width: 100%; padding-top: 20rpx; border-top: 2rpx #F5F5F5 solid; margin-top: 40rpx; display: flex; }
 .datetime .pl{
- flex: 1; text-align: left; overflow: hidden
+ flex: 0.5; text-align: left; overflow: hidden
 }
 .datetime .plimg{ width: 18px; height: 18px; padding-right: 8rpx}
 .datetime .tm{

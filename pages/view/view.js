@@ -56,41 +56,7 @@ Page({
   },
 
 
-  getGuanzhu:function(ev){
-    var that = this;
-    var userInfo = that.data.userInfo;
-   if(ev == 1){
-      wx.request({
-        url: app.globalData.API_URL + '/getGuanzhu',
-        data: {
-          cid: 1,
-          openId: that.data.openId,
-          vid: that.data.vid,
-          avatar: userInfo.avatarUrl,
-          uname: userInfo.nickName
-        },
-        method: 'GET',
-        success: function (res) {
-
-        }
-      })
-   }else if(ev == 2){
-       wx.request({
-         url: app.globalData.API_URL + '/getGuanzhu',
-        data: {
-          cid: 2,
-          vid: that.data.vid
-        },
-        method: 'GET',
-        success: function (res) {
-          that.setData({
-            gzList: res.data
-          })
-        }
-      })
-   }
-
-  },
+ 
 
   onLoad: function (params) {
     var that = this;
@@ -106,7 +72,7 @@ Page({
     var emojis = []
     that.data.emoji.forEach(function (v, i) {
       em = {
-        char: emChar[i],
+         char: v,
         emoji: "0x1f" + v
       };
       emojis.push(em)
@@ -160,6 +126,29 @@ Page({
       that.getGuanzhu(2);
     }, 7000)
   },
+
+   getGuanzhu: function (ev) {
+      var that = this;
+      var userInfo = that.data.userInfo;
+      var url = app.globalData.API_URL + '/message/saveOrGetVisitorLog';
+      var data = {
+         actionType: ev,
+         openId: that.data.openId,
+         messageId: that.data.vid,
+         avatar: userInfo.avatarUrl,
+         nickName: userInfo.nickName,
+         randomKey: userInfo.randomKey
+      }
+      httprequest.doPost(url, "", data, app.globalData.userInfo.token,
+         function (res) {
+            wx.hideNavigationBarLoading()
+            console.log("/getGuanzhu"+JSON.stringify(res.data));
+         },
+         function (res) {
+            wx.hideNavigationBarLoading()
+         });
+
+   },
 
   callmeTap: function () {
     wx.makePhoneCall({

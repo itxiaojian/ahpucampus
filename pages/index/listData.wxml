@@ -22,8 +22,15 @@
             </view>
           </view>
       <view class="datetime">
-          <label class="pl"><image src="../../image/pl.png" class="plimg"></image>{{item.plnum}}</label>
-          <label class="tm"><image src="../../image/time.png" class="tmimg"></image>{{item.createtime}}</label>
+          <label class="pl">
+               <image src="../../image/ll.png" class="plimg"></image>{{item.visitorCount}}
+          </label>
+          <label class="pl">
+               <image src="../../image/pl.png" class="plimg"></image>{{item.plnum}}
+          </label>
+          <label class="tm">
+               <image src="../../image/time.png" class="tmimg"></image>{{item.createtime}}
+          </label>
       </view>  
       </navigator>
     </view>
