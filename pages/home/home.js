@@ -9,6 +9,7 @@ Page({
   },
   // index.js  登录业务：
   onLoad: function (options) {
+    console.log("home onLoad");
     var that = this;
     // 查看是否授权
     wx.getSetting({
@@ -31,10 +32,10 @@ Page({
       //用户按了允许授权按钮
       var that = this;
       // 获取到用户的信息了，打印到控制台上看下
-      console.log("用户的信息如下：");
-      console.log(e.detail.userInfo);
-      console.log("此时app用户信息：");
-       console.log(JSON.stringify(app.globalData.userInfo));
+      //console.log("用户的信息如下：");
+      //console.log(e.detail.userInfo);
+      //console.log("此时app用户信息：");
+       //console.log(JSON.stringify(app.globalData.userInfo));
        app.globalData.userInfo.avatarUrl = e.detail.userInfo.avatarUrl;
        app.globalData.userInfo.city = e.detail.userInfo.city;
        app.globalData.userInfo.country = e.detail.userInfo.country;
@@ -42,9 +43,10 @@ Page({
        app.globalData.userInfo.language = e.detail.userInfo.language;
        app.globalData.userInfo.nickName = e.detail.userInfo.nickName;
        app.globalData.userInfo.province = e.detail.userInfo.province;
-       console.log("赋值后app用户信息：");
-       console.log(JSON.stringify(app.globalData.userInfo));
+       //console.log("赋值后app用户信息：");
+       //console.log(JSON.stringify(app.globalData.userInfo));
        util.setCurrentUser(app.globalData.userInfo);
+       app.saveOrUpdateUser(app.globalData.userInfo);
       //授权成功后,通过改变 isHide 的值，让实现页面显示出来，把授权页面隐藏起来
       this.setUserInfoAndNext();
       that.setData({

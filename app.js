@@ -14,22 +14,22 @@ App({
     console.log('App onShow');
     var that = this;
     var currentUser = util.getCurrentUser();
-    console.log("app.js===util.getCurrentUser()" + JSON.stringify(currentUser));
+    //console.log("app.js===util.getCurrentUser()" + JSON.stringify(currentUser));
     if(util.isNotNull(currentUser.openId)){
       var url = that.globalData.API_URL + '/auth?openId=' + currentUser.openId;
       httprequest.doGet(url,function(res){
-        console.log("onShow" + JSON.stringify(res));
+        //console.log("onShow" + JSON.stringify(res));
         if(res.code == undefined){
-          console.log("onShow-authorize-user:" + JSON.stringify(res));
-          console.log("onShow-that.userInfo-beforeauth" + JSON.stringify(that.globalData.userInfo));
+          //console.log("onShow-authorize-user:" + JSON.stringify(res));
+          //console.log("onShow-that.userInfo-beforeauth" + JSON.stringify(that.globalData.userInfo));
           that.globalData.userInfo.token = res.token;
           that.globalData.userInfo.randomKey = res.randomKey
-          console.log("onShow-this.data.userInfo-afterauth" + JSON.stringify(that.globalData.userInfo));
+          //console.log("onShow-this.data.userInfo-afterauth" + JSON.stringify(that.globalData.userInfo));
           util.setCurrentUser(that.globalData.userInfo);
-          console.log("onShow-getCurrentUser" + JSON.stringify(util.getCurrentUser()));
-          console.log("onShow-app.globalData.userInfo" + JSON.stringify(that.globalData.userInfo));
+          //console.log("onShow-getCurrentUser" + JSON.stringify(util.getCurrentUser()));
+          //console.log("onShow-app.globalData.userInfo" + JSON.stringify(that.globalData.userInfo));
         }else{
-          console.log(JSON.stringify(res));
+          //console.log(JSON.stringify(res));
         }
       },
       function(res){
@@ -42,20 +42,19 @@ App({
         success: function (loginCode) {
           var url = that.globalData.API_URL + '/auth?code=' + loginCode.code;
           httprequest.doGet(url, function (res) {
-            console.log("onLaunch" + JSON.stringify(res));
+            //console.log("onLaunch" + JSON.stringify(res));
             wx.hideNavigationBarLoading()
             //获取信息成功后按照当全局>缓存的顺序更新用户信息
-            console.log("authorize-user:" + JSON.stringify(res));
-            console.log("that.userInfo-beforeauth" + JSON.stringify(that.globalData.userInfo));
+            //console.log("authorize-user:" + JSON.stringify(res));
+            //console.log("that.userInfo-beforeauth" + JSON.stringify(that.globalData.userInfo));
             that.globalData.userInfo = res;
             that.globalData.userInfo.openId = res.openId;
             that.globalData.userInfo.token = res.token;
             that.globalData.userInfo.randomKey = res.randomKey;
-            console.log("that.data.userInfo-afterauth" + JSON.stringify(that.globalData.userInfo));
+            //console.log("that.data.userInfo-afterauth" + JSON.stringify(that.globalData.userInfo));
             util.setCurrentUser(that.globalData.userInfo);
-            console.log("getCurrentUser" + JSON.stringify(util.getCurrentUser()));
-            console.log("app.globalData.userInfo" + JSON.stringify(that.globalData.userInfo));
-            that.saveOrUpdateUser(that.globalData.userInfo);
+            //console.log("getCurrentUser" + JSON.stringify(util.getCurrentUser()));
+            //console.log("app.globalData.userInfo" + JSON.stringify(that.globalData.userInfo));
           },
             function (res) {
               wx.hideNavigationBarLoading()
@@ -106,7 +105,7 @@ App({
 
   globalData: {
     userInfo: null,
-   //  API_URL:'http://localhost:8086',
+    // API_URL:'http://localhost:8086',
      API_URL: 'https://www.ahpucampus.club/wechat',
     qqmapKey:'D6JBZ-EPHWF-SHWJZ-J2T64-IHUI5-KZBJO'
   }

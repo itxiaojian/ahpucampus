@@ -29,7 +29,7 @@ var GetList = function (that) {
      'randomKey': app.globalData.userInfo.randomKey
   };
 
-   console.log("/message/queryList===参数"+JSON.stringify(data));
+   //console.log("/message/queryList===参数"+JSON.stringify(data));
 
    httprequest.doPost(
       app.globalData.API_URL + "/message/queryList",
@@ -37,7 +37,7 @@ var GetList = function (that) {
       data,
       app.globalData.userInfo.token,
       function (res) {
-        console.log("/message/queryList===返回"+JSON.stringify(res));
+        //console.log("/message/queryList===返回"+JSON.stringify(res));
         if(res.code == 200){
            var list = that.data.list;
            var whdthNum = res.data.list.length;
@@ -97,14 +97,14 @@ Page({
   },
   onLoad: function () {
      var that = this;
-    console.log("test1 onLoad");
+    console.log("index onLoad");
     //获取用户基本信息
    that.setData({
       userInfo: app.globalData.userInfo
    })
   },
   onShow: function () {
-    console.log("test1 onShow");
+    console.log("index onShow");
     var that = this;
     var ShdthNum = that.data.ShdthNum;
     if (ShdthNum == 1){
