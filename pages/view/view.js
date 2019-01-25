@@ -18,7 +18,7 @@ Page({
     isLoading: true,
     cfBg: false,
     comments: [],
-    emojiChar: "----------------------------------------------------------------------------",
+    emojiChar: "😊----------------------------------------------------------------------------",
     //0x1f---
     emoji: [
       "60a", "60b", "60c", "60d", "60f",
@@ -72,7 +72,7 @@ Page({
     var emojis = []
     that.data.emoji.forEach(function (v, i) {
       em = {
-         char: v,
+        char: emChar[i],
         emoji: "0x1f" + v
       };
       emojis.push(em)
@@ -210,9 +210,10 @@ Page({
   getMusicInfo: function (message) {
     var that = this;
     var data = {
-      vid: that.data.view_id
+      messageId: that.data.view_id
     }
-    httprequest.doPost(app.globalData.API_URL+'/up_message/', data, message, function (res) {
+    httprequest.doPost(app.globalData.API_URL + '/message/getMessageComments', message, data, app.globalData.userInfo.token, 
+    function (res) {
       var contentlistTem = that.data.comments
         if (that.data.page == 1) {
           contentlistTem = []
@@ -259,12 +260,7 @@ Page({
     
   },
 
-  textAreaBlur: function (e) {
-    this.setData({
-      content: e.detail.value
-    })
-
-  },
+  
   textAreaFocus: function () {
     this.setData({
       isShow: false,
@@ -289,29 +285,50 @@ Page({
       cfBg: false
     })
   },
-  send: function () {
+
+  textAreaBlur: function (e) {
+    console.log("textAreaBlur" + e.detail.value);
+    this.setData({
+      content: e.detail.value
+    })
+
+  },
+
+
+  send: function (e) {
     var that = this, conArr = [];
     var vid = that.data.view_id;
     var userInfo = that.data.userInfo;
-    setTimeout(function () {
-      wx.request({
-        url: app.globalData.API_URL + 'ad_message/vid/' + vid,
-        data: {
-          content: that.data.content,
-          openId: that.data.openId,
-          avatar: userInfo.avatarUrl,
-          uname: userInfo.nickName,
-          time: util.formatTime(new Date())
-        },
-        header: {
-          'Content-Type': 'application/json'
-        },
-        success: function (res) {
-          if (that.data.content.trim().length > 0) {
+    var url = app.globalData.API_URL + '/message/saveComment';
+    var sendTime = util.formatTimes(new Date());
+    var content = that.data.content;
+    if(content.trim().length === 0){
+      wx.showToast({
+        title: '评论不可为空哦',
+        icon: 'loading',
+        duration: 1000
+      })
+    }
+
+    var data = {
+      messageId:vid,
+      content: content,
+      sendOpenId: that.data.openId,
+      sendAvatar: userInfo.avatarUrl,
+      sendNickName: userInfo.nickName,
+      createTime: sendTime,
+      randomKey: userInfo.randomKey,
+      commentType:1
+    }
+    setTimeout(function () {  
+     httprequest.doPost(url, "", data, app.globalData.userInfo.token,
+        function (res) {
+          console.log("/saveComment" + JSON.stringify(res.data));
+          if (content.trim().length > 0) {
             conArr.push({
               avatar: userInfo.avatarUrl,
               uname: userInfo.nickName,
-              time: util.formatTime(new Date()),
+              time: sendTime,
               content: that.data.content
             })
             that.setData({
@@ -321,7 +338,7 @@ Page({
               cfBg: false
             })
             wx.showToast({
-              title: '发送成功',
+              title: '评论成功',
               icon: 'loading',
               duration: 1000
             })
@@ -330,10 +347,11 @@ Page({
               content: ""
             })
           }
-
-        }
-      })
-    }, 100)
+        },
+        function (res) {
+          console.log("/saveComment失败" + JSON.stringify(res));
+        });
+    }, 500)
   },
 
 onShareAppMessage: function (res) {

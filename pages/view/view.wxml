@@ -89,8 +89,8 @@
   <view class="cf-bg" catchtap="cemojiCfBg" style="display:{{cfBg ? 'block' : 'none'}}"></view>
   <view class="comment-fixed">
     <view class="cf-box">
-      <view class="emoji iconfont icon-emoji" catchtap="emojiShowHide"></view>
-      <textarea class="cf-content" bindfocus="textAreaFocus" maxlength="200" bindblur="textAreaBlur" cursor-spacing="100" auto-height value="{{content}}" />
+      <!-- <view class="emoji iconfont icon-emoji" catchtap="emojiShowHide"></view> -->
+      <textarea class="cf-content" bindfocus="textAreaFocus" maxlength="200" bindinput="textAreaBlur" cursor-spacing="100" auto-height value="{{content}}" />
       <text class="cf-send touch-active" bindtap="send">发送</text>
     </view>
 
