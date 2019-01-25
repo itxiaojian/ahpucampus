@@ -18,7 +18,7 @@ App({
     if(util.isNotNull(currentUser.openId)){
       var url = that.globalData.API_URL + '/auth?openId=' + currentUser.openId;
       httprequest.doGet(url,function(res){
-        //console.log("onShow" + JSON.stringify(res));
+        console.log("onShow" + JSON.stringify(res));
         if(res.code == undefined){
           //console.log("onShow-authorize-user:" + JSON.stringify(res));
           //console.log("onShow-that.userInfo-beforeauth" + JSON.stringify(that.globalData.userInfo));
@@ -105,7 +105,7 @@ App({
 
   globalData: {
     userInfo: null,
-    // API_URL:'http://localhost:8086',
+   //  API_URL:'http://localhost:8086',
      API_URL: 'https://www.ahpucampus.club/wechat',
     qqmapKey:'D6JBZ-EPHWF-SHWJZ-J2T64-IHUI5-KZBJO'
   }

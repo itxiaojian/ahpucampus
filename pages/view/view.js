@@ -127,6 +127,32 @@ Page({
     }, 7000)
   },
 
+   umessage: function (vid) {
+      var that = this;
+      var data = {
+         page: 0,
+         page_size: that.data.pageSize,
+         messageId: that.data.view_id
+      };
+
+      httprequest.doPost(app.globalData.API_URL + '/message/getMessageComments', '', data, app.globalData.userInfo.token,
+         function (res) {
+            var msNum = res.data.comments.length;
+
+            if (msNum == undefined) {
+               that.setData({
+                  nsdata: false
+               })
+            } else {
+               that.setData({
+                  comments: res.data.comments,
+                  view_id: vid
+               })
+            }
+
+         })
+   },
+
    getGuanzhu: function (ev) {
       var that = this;
       var userInfo = that.data.userInfo;
@@ -177,35 +203,7 @@ Page({
     })
   },
 
-  umessage: function (vid){
-    var that = this;
-    wx.request({
-      url: app.globalData.API_URL + '/up_message/vid/' + vid,
-      data: {
-        page: 0,
-        page_size: that.data.pageSize
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/json'
-      },
-      success: function (res) {
-          var msNum = res.data.length;
-         
-          if (msNum == undefined){
-            that.setData({
-              nsdata: false
-            })
-          }else{
-            that.setData({
-              comments: res.data,
-              view_id: vid
-            })
-          }
-      }
-    })
-
-  },
+  
 
   getMusicInfo: function (message) {
     var that = this;
@@ -326,10 +324,10 @@ Page({
           console.log("/saveComment" + JSON.stringify(res.data));
           if (content.trim().length > 0) {
             conArr.push({
-              avatar: userInfo.avatarUrl,
-              uname: userInfo.nickName,
-              time: sendTime,
-              content: that.data.content
+               sendAvatar: userInfo.avatarUrl,
+               sendNickName: userInfo.nickName,
+               createTime: sendTime,
+               content: that.data.content
             })
             that.setData({
               comments: that.data.comments.concat(conArr),
@@ -351,7 +349,7 @@ Page({
         function (res) {
           console.log("/saveComment失败" + JSON.stringify(res));
         });
-    }, 500)
+    }, 100)
   },
 
 onShareAppMessage: function (res) {
