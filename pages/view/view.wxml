@@ -56,12 +56,12 @@
   <view class="comments">
     <view class="item touch-active" wx:for="{{comments}}" wx:key="" wx:for-item="c" data-num="{{index}}">
       <view class="i-left">
-        <image class="c-u-img" src="{{c.avatar}}"></image>
+        <image class="c-u-img" src="{{c.sendAvatar}}"></image>
       </view>
       <view class="i-right">
         <view class="top">
-          <text class="u-name">{{c.uname}}</text>
-          <text class="time">{{c.time}}</text>
+          <text class="u-name">{{c.sendNickName}}</text>
+          <text class="time">{{c.createTime}}</text>
         </view>
 
         <!--评论内容-->

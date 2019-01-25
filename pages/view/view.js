@@ -218,7 +218,7 @@ Page({
         if (that.data.page == 1) {
           contentlistTem = []
         }
-        var contentlist = res
+      var contentlist = res.data.comments
         if (contentlist.length > that.data.pageSize) {
           that.setData({
             comments: contentlistTem.concat(contentlist),
