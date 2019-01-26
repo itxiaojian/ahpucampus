@@ -2,7 +2,6 @@
 var util = require('/utils/util.js');
 var httprequest = require('/utils/httprequest.js');
 App({
-  version: 'v0.1.4',
   //监听小程序初始化，当小程序初始化完成时会触发发，且全局只触发一次
   onLaunch: function() {
      var that = this;

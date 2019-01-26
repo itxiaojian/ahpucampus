@@ -70,7 +70,7 @@ Page({
   },
 
   // 获取个人信息成功，然后处理剩下的业务或跳转首页
-  setUserInfoAndNext() {
+   setUserInfoAndNext: function() {
     // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
     // 所以此处加入 callback 以防止这种情况
     if (this.userInfoReadyCallback) {
