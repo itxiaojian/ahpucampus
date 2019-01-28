@@ -8,7 +8,7 @@ Page({
     openId:'',
     windowWidth:'',
     windowHeight:'',
-    contents:'',
+    contents:'评论...',
     vid:'',
     tel:'0123456789',
     mobile:'',
@@ -258,6 +258,16 @@ Page({
     
   },
 
+  /**
+     * 点击回复
+     */
+  bindReply: function (e) {
+    var releaseFocus = this.data.releaseFocus;
+    this.setData({
+      releaseFocus: !releaseFocus
+    })
+  },
+
   
   textAreaFocus: function () {
     this.setData({
@@ -333,6 +343,7 @@ Page({
               comments: that.data.comments.concat(conArr),
               content: "",
               isShow: false,
+              releaseFocus:false,
               cfBg: false
             })
             wx.showToast({

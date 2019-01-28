@@ -52,6 +52,7 @@
 <!--评论列表-->
 <view class="pinglun">
   <text>评论列表</text>
+  <text class="cf-send touch-active" bindtap="bindReply">评论</text>
 </view>
   <view class="comments">
     <view class="item touch-active" wx:for="{{comments}}" wx:key="" wx:for-item="c" data-num="{{index}}">
@@ -86,16 +87,16 @@
    </block>
 
   <!--评论盒子-->
-  <view class="cf-bg" catchtap="cemojiCfBg" style="display:{{cfBg ? 'block' : 'none'}}"></view>
+  <!-- <view class="cf-bg" catchtap="cemojiCfBg" style="display:{{cfBg ? 'block' : 'none'}}"></view>
   <view class="comment-fixed">
     <view class="cf-box">
-      <!-- <view class="emoji iconfont icon-emoji" catchtap="emojiShowHide"></view> -->
+      <view class="emoji iconfont icon-emoji" catchtap="emojiShowHide"></view>
       <textarea class="cf-content" bindfocus="textAreaFocus" maxlength="200" bindinput="textAreaBlur" cursor-spacing="100" auto-height value="{{content}}" />
       <text class="cf-send touch-active" bindtap="send">发送</text>
-    </view>
+    </view> -->
 
     <!--emoji表情盒子-->
-    <view class="emoji-box {{isShow ? 'emoji-move-in' : 'emoji-move-out'}} {{isLoad ? 'no-emoji-move' : ''}}">
+    <!-- <view class="emoji-box {{isShow ? 'emoji-move-in' : 'emoji-move-out'}} {{isLoad ? 'no-emoji-move' : ''}}">
       <scroll-view scroll-y="true" bindscroll="emojiScroll" style="height:200px">
         <block wx:for="{{emojis}}" wx:for-item="e" wx:key="">
           <view class="emoji-cell">
@@ -105,4 +106,23 @@
       </scroll-view>
     </view>
   </view>
-</view>
+</view> -->
+
+<!-- 评论框 -->
+<!-- <view class="talk" bindtap="bindReply">回复</view> -->
+
+<view class="release" hidden="{{!releaseFocus}}">
+    <textarea class="text"
+          placeholder-class="input_null" 
+          fixed="true" 
+          maxlength="-1" 
+          show-confirm-bar="false" 
+          cursor-spacing="15" 
+          auto-height="true" 
+          focus="{{releaseFocus}}"
+          bindinput="textAreaBlur"
+          bindblur="bindReply"
+          value="{{content}}"
+          placeholder="回复：{{views.nickName}}"></textarea>
+    <view class="submit" bindtap="send">发送</view>
+</view></view>
