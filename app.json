@@ -8,7 +8,8 @@
     "pages/user/user",
     "pages/ulist/ulist",
     "pages/about/about",
-    "pages/lianx/lianx",
+    "pages/setting/setting",
+    "pages/authorize/authorize",
     "pages/test/test"
   ],
   "window": {

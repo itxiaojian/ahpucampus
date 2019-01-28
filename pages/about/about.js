@@ -31,6 +31,10 @@ Page({
         function (res) {
            aboutInfo = util.getStorageSync('aboutInfo');
            console.log("/userindex/getAboutInfo失败" + JSON.stringify(res));
+           that.setData({
+              aboutInfo: aboutInfo,
+              year: new Date().getFullYear()
+           });
         });
     
   },

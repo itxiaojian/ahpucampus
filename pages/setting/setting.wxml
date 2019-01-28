@@ -1,5 +1,5 @@
 <!--pages/about/about.wxml-->
-<loading hidden="{{loadingHide}}">
+<!-- <loading hidden="{{loadingHide}}">
   {{loadingText}}
 </loading>
 <view class="IndexHome">
@@ -23,7 +23,18 @@
     <image src="../../image/map.png" class="mapIco" mode="widthFix"></image>
     <text class="map">安徽工程大学</text>
   </view>
-</view>
+</view> -->
+<view class="usermotto">
+    <navigator class="list_a" url="../authorize/authorize">
+        授权设置
+    </navigator>
+    <navigator class="list_b" url="../lianx/lianx">
+        我的资料
+    </navigator>
+    <navigator class="list_b" url="../about/about">
+        清楚缓存
+    </navigator>
+  </view>
 <view class="footer">
   ©2018 ahpucampus
 </view>

@@ -40,3 +40,14 @@
   width: 3%;
   margin-right: 15rpx
 }
+
+.usermotto {
+  width: 92%;
+  background: #FFF;
+  border-bottom: 2rpx #F1F1F1 solid;
+  padding: 0 4%
+}
+.list_a{ width: 100%; padding: 30rpx 0}
+.list_b{
+  border-top: 2rpx #F1F1F1 solid; padding: 30rpx 0
+}

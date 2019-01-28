@@ -9,7 +9,7 @@
     <navigator class="list_a" url="../ulist/ulist?openid={{openid}}">
         消息
     </navigator>
-    <navigator class="list_b" url="../lianx/lianx">
+    <navigator class="list_b" url="../setting/setting">
         设置
     </navigator>
     <navigator class="list_b" url="../about/about">
