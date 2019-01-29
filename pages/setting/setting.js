@@ -1,4 +1,4 @@
-
+var app = getApp();
 Page({
 
 
@@ -18,5 +18,26 @@ Page({
     setTimeout(function () {
       that.setData({ loadingHide: true });
     }, 1000)
-  }
+  },
+
+   clearStorage : function(){
+      wx.clearStorage({
+         success: (res) => {
+            console.log(JSON.stringify(res));
+            wx.showToast({
+               title: ' 清除成功',
+               icon: 'success',
+               duration: 1500
+            })
+         },
+         fail: (res) => {
+            console.log(JSON.stringify(res));
+            wx.showToast({
+               title: ' 清除失败',
+               icon: 'success',
+               duration: 1500
+            })
+         }
+      })
+   }
 })

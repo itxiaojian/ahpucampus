@@ -13,7 +13,7 @@
     "pages/test/test"
   ],
   "window": {
-    "navigationBarTextStyle": "#FFFFFF",
+    "navigationBarTextStyle": "white",
     "navigationBarTitleText": "灰尘大小饭桌",
     "navigationBarBackgroundColor": "#7acfa6",
     "backgroundColor": "#EEEEEE",

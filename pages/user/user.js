@@ -117,14 +117,20 @@ Page({
         util.setCurrentUser(app.globalData.userInfo);
         //完善的用户信息提交到后台入表
         app.saveOrUpdateUser(app.globalData.userInfo);
+         wx.hideLoading();
+         wx.showToast({
+            title: '成功',
+            icon: 'success',
+            duration: 1500
+         })
       },
-      complete: function () { 
-        wx.hideLoading();
-        wx.showToast({
-          title: '成功',
-          icon: 'success',
-          duration: 1500
-        })
+      fail:function(res){
+        console.log("获取用户信息失败，用户未授权"+JSON.stringify(res));
+         setTimeout(() => {
+            wx.reLaunch({
+               url: '../home/home'
+            })
+         }, 30)
       }
     })
   }

@@ -42,12 +42,33 @@
 }
 
 .usermotto {
-  width: 92%;
-  background: #FFF;
-  border-bottom: 2rpx #F1F1F1 solid;
-  padding: 0 4%
+  width: 100%;
+  background: #FFF
 }
-.list_a{ width: 100%; padding: 30rpx 0}
+.list_a{ 
+   width: 100%; 
+   padding:10px 14px;
+   font-size:16px;
+}
 .list_b{
-  border-top: 2rpx #F1F1F1 solid; padding: 30rpx 0
+  border-top: 2rpx #F1F1F1 solid; padding: 30rpx 14px
+}
+
+
+
+button {
+background-color:#fff!important;
+position:relative;
+display:block;
+margin-left:auto;
+margin-right:auto;
+padding:10px 14px;
+box-sizing:border-box;
+font-size:16px;
+text-align:left!important;
+text-decoration:none;
+line-height:2.55555556;
+border-radius:0px!important;
+-webkit-tap-highlight-color:transparent;
+overflow:hidden;
 }
