@@ -49,7 +49,48 @@ Page({
         })
       },
       fail: function (err) {
-        console.log(err);
+        console.log("onLoad.getrealLocaltion()" + JSON.stringify(err));
+        that.regetLocaltion();
+      }
+    })
+  },
+
+  regetLocaltion:function(){
+    var that = this;
+    wx.showModal({
+      title: '是否授权当前位置',
+      content: '需要获取您的地理位置，请确认授权，否则无法获取您所需数据',
+      success: function (res) {
+        if (res.cancel) {
+          that.setData({
+            isshowCIty: false
+          })
+          wx.showToast({
+            title: '授权失败',
+            icon: 'success',
+            duration: 1000
+          })
+        } else if (res.confirm) {
+          wx.openSetting({
+            success: function (dataAu) {
+              if (dataAu.authSetting["scope.userLocation"] == true) {
+                wx.showToast({
+                  title: '授权成功',
+                  icon: 'success',
+                  duration: 1000
+                })
+                //再次授权，调用getLocationt的API
+                that.getrealLocaltion(that);
+              } else {
+                wx.showToast({
+                  title: '授权失败',
+                  icon: 'success',
+                  duration: 1000
+                })
+              }
+            }
+          })
+        }
       }
     })
   },
@@ -236,12 +277,13 @@ Page({
         console.log("that.data.content===" + that.data.content);
       },
       fail: function (err) {
-        console.log(err);
-        that.setData({
-          latitude: 0,
-          longitude: 0,
-          detailAddress: ''
-        })
+        console.log("clearGps.onChangeAddress()" + JSON.stringify(err));
+        that.regetLocaltion();
+        // that.setData({
+        //   latitude: 0,
+        //   longitude: 0,
+        //   detailAddress: ''
+        // })
       }
     });
   },
