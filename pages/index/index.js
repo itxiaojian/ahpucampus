@@ -21,6 +21,7 @@ var GetList = function (that) {
       util.removeStorageSync("switchTabFromAdd");
       util.removeStorageSync("activeIndexFromAdd");
    }
+   
 
   var data = {
      'page': page,

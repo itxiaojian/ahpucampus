@@ -52,6 +52,8 @@ Page({
       that.setData({
         isHide: false
       });
+      util.setStorageSync("switchTabFromAdd", true);
+      util.setStorageSync("activeIndexFromAdd", 0);
     } else {
       //用户按了拒绝按钮
       wx.showModal({
