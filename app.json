@@ -9,7 +9,6 @@
     "pages/ulist/ulist",
     "pages/about/about",
     "pages/setting/setting",
-    "pages/authorize/authorize",
     "pages/test/test"
   ],
   "window": {

@@ -1,7 +1,7 @@
 <!--pages/about/about.wxml-->
 <view class="usermotto">
     <button open-type="openSetting" bindopensetting="callback">授权设置</button>
-    <navigator class="list_a" url="../lianx/lianx">
+    <navigator class="list_a" url="../mobile/mobile">
         我的资料
     </navigator>
     <button bindtap="clearStorage">清除缓存</button>
